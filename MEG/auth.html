@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Iniciar Sesión o Registrarse | MEG</title>
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+
+<body>
+  <!-- Pantalla de Carga (Loading Screen) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <div class="meg-logo-animation">
+        <svg id="meg-loading-svg" viewBox="0 0 200 200" width="160" height="160">
+          <defs>
+            <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1A3FD6" />
+              <stop offset="50%" stop-color="#00D2C4" />
+              <stop offset="100%" stop-color="#7B6FE8" />
+            </linearGradient>
+          </defs>
+          <path id="svg-arc" class="svg-arc" d="M 40 100 A 60 60 0 1 1 160 100" fill="none" stroke="url(#arc-gradient)"
+            stroke-width="8" stroke-linecap="round" />
+          <g id="svg-network" class="svg-network">
+            <line id="line-1" x1="70" y1="80" x2="100" y2="70" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-2" x1="100" y1="70" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-3" x1="70" y1="80" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-4" x1="85" y1="110" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-5" x1="115" y1="110" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-6" x1="100" y1="70" x2="100" y2="100" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-7" x1="100" y1="100" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-8" x1="100" y1="100" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <circle id="node-1" cx="70" cy="80" r="6" fill="#1A3FD6" />
+            <circle id="node-2" cx="100" cy="70" r="6" fill="#00D2C4" />
+            <circle id="node-3" cx="130" cy="80" r="6" fill="#7B6FE8" />
+            <circle id="node-4" cx="85" cy="110" r="6" fill="#7B6FE8" />
+            <circle id="node-5" cx="100" cy="100" r="6" fill="#1A3FD6" />
+            <circle id="node-6" cx="115" cy="110" r="6" fill="#00D2C4" />
+          </g>
+          <g id="svg-particles" class="svg-particles">
+            <circle cx="145" cy="45" r="3.5" fill="#00D2C4" opacity="0" class="particle-dot" />
+            <circle cx="155" cy="55" r="4.5" fill="#7B6FE8" opacity="0" class="particle-dot" />
+            <circle cx="160" cy="40" r="3" fill="#1A3FD6" opacity="0" class="particle-dot" />
+          </g>
+        </svg>
+        <h1 class="meg-loading-text">MEG</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled">
+    <div class="container">
+      <div class="logo-container" onclick="window.location.href='index.html'">
+        <div class="logo-icon"><img src="logo.png" alt=""></div>
+        <span>MEG</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="busqueda.html" class="nav-link">Explorar servicios</a>
+        <a href="index.html#seccion-proveedores" class="nav-link">Para proveedores</a>
+        <a href="planes.html" class="nav-link">Planes y Precios</a>
+      </div>
+
+      <div class="nav-ctas">
+        <!-- Rellenado por router.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Auth and Verification Shell -->
+  <main class="auth-wrapper">
+    <div class="auth-card">
+
+      <!-- Container 1: Login / Register Forms -->
+      <div id="auth-forms-container">
+        <div class="auth-tabs-nav">
+          <button id="auth-btn-login" class="auth-tab-btn active">Iniciar Sesión</button>
+          <button id="auth-btn-register" class="auth-tab-btn">Crear Cuenta</button>
+        </div>
+
+        <!-- PANEL LOGIN -->
+        <div id="panel-login" class="step-panel active">
+          <div class="auth-header">
+            <h3>¡Qué bueno verte de nuevo!</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Ingresa tus
+              credenciales para acceder a tu panel.</p>
+          </div>
+
+          <form id="form-login">
+            <div class="input-group">
+              <label class="input-label">Correo electrónico</label>
+              <input type="email" id="login-email" class="input-field" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <div class="input-group">
+              <div class="flex justify-between align-center">
+                <label class="input-label">Contraseña</label>
+                <a href="#" style="font-size: 11px; color: var(--color-accent-purple); font-weight: 600;">¿La
+                  olvidaste?</a>
+              </div>
+              <input type="password" id="login-pass" class="input-field" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full mt-md">Iniciar Sesión</button>
+          </form>
+
+          <div
+            style="text-align: center; margin: var(--spacing-md) 0; font-size: var(--font-size-xs); color: var(--text-muted);">
+            o continúa con</div>
+
+          <button onclick="showToast('Google login', 'Simulación de inicio de sesión con Google', 'info')"
+            class="btn btn-secondary w-full"
+            style="display:flex; justify-content:center; align-items:center; gap:var(--spacing-sm);">
+            <i class="ph-google-logo" style="font-size: var(--font-size-md);"></i> Continuar con Google
+          </button>
+        </div>
+
+        <!-- PANEL REGISTER (MULTISTEP) -->
+        <div id="panel-register" class="step-panel">
+
+          <!-- STEP 1: ROL SELECTOR -->
+          <div id="reg-step-1" class="step-panel active">
+            <div class="auth-header">
+              <h3>¿Cómo planeas usar MEG ?</h3>
+              <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Selecciona tu
+                rol para personalizar tu experiencia.</p>
+            </div>
+
+            <div class="role-grid">
+              <div id="role-card-consumidor" class="role-card selected">
+                <i class="ph-user role-icon"></i>
+                <strong style="font-size: var(--font-size-sm);">Soy Consumidor</strong>
+                <span style="font-size: 10px; color: var(--text-secondary);">Quiero buscar, comparar y contratar
+                  servicios.</span>
+              </div>
+
+              <div id="role-card-proveedor" class="role-card">
+                <i class="ph-storefront role-icon"></i>
+                <strong style="font-size: var(--font-size-sm);">Soy Proveedor</strong>
+                <span style="font-size: 10px; color: var(--text-secondary);">Quiero ofrecer mis servicios y conseguir
+                  clientes.</span>
+              </div>
+            </div>
+
+            <button id="btn-step1-next" class="btn btn-primary w-full mt-md">Siguiente paso <i
+                class="ph-arrow-right"></i></button>
+          </div>
+
+          <!-- STEP 2 (CONSUMIDOR FORM) -->
+          <div id="reg-step-2-cons" class="step-panel">
+            <div class="auth-header">
+              <h3>Datos del Consumidor</h3>
+              <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Completa tu
+                información para agendar servicios de inmediato.</p>
+            </div>
+
+            <form id="form-register-cons">
+              <div class="input-group">
+                <label class="input-label">Nombre Completo</label>
+                <input type="text" id="cons-name" class="input-field" placeholder="Caleb Villalobos" required>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Correo electrónico</label>
+                <input type="email" id="cons-email" class="input-field" placeholder="caleb.villalobos@gmail.com"
+                  required>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Ubicación (Cantón Central)</label>
+                <select id="cons-location" class="input-field select-field" required>
+                  <option value="escazu">Escazú (San José)</option>
+                  <option value="santa-ana">Santa Ana (San José)</option>
+                  <option value="san-pedro">San Pedro (San José)</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Contraseña</label>
+                <input type="password" id="cons-pass" class="input-field" placeholder="Mínimo 8 caracteres" required>
+              </div>
+
+              <div class="flex gap-sm mt-lg">
+                <button type="button" id="btn-step2-back" class="btn btn-secondary">Atrás</button>
+                <button type="submit" class="btn btn-primary flex-grow">Registrarme</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- STEP 2: PROVEEDOR 7-STEP WIZARD -->
+          <div id="reg-step-2-prov" class="step-panel">
+            <div class="wizard-progress-bar">
+              <div class="wizard-step-node active" id="node-wiz-1">1<span class="wizard-label">Cuenta</span></div>
+              <div class="wizard-step-node" id="node-wiz-2">2<span class="wizard-label">Negocio</span></div>
+              <div class="wizard-step-node" id="node-wiz-3">3<span class="wizard-label">KYC</span></div>
+              <div class="wizard-step-node" id="node-wiz-4">4<span class="wizard-label">Ubicación</span></div>
+              <div class="wizard-step-node" id="node-wiz-5">5<span class="wizard-label">Horarios</span></div>
+              <div class="wizard-step-node" id="node-wiz-6">6<span class="wizard-label">Portada</span></div>
+              <div class="wizard-step-node" id="node-wiz-7">7<span class="wizard-label">Confirmar</span></div>
+            </div>
+
+            <!-- PASO 1: DATOS DEL USUARIO -->
+            <div id="v-wiz-step-1" class="wizard-substep active">
+              <div class="auth-header">
+                <h3>Paso 1: Datos de tu Cuenta</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Ingresa tus
+                  credenciales personales de acceso.</p>
+              </div>
+
+              <div class="input-group mb-sm">
+                <label class="input-label">Nombre Completo de la Persona Emprendedora *</label>
+                <input type="text" id="v-user-name" class="input-field" placeholder="Karla Solano Gómez" required>
+              </div>
+
+              <div class="input-group mb-sm">
+                <label class="input-label">Correo Electrónico Personal / Acceso *</label>
+                <input type="email" id="v-user-email" class="input-field" placeholder="contacto@karlasolano.com"
+                  required>
+              </div>
+
+              <div class="grid grid-2 text-left gap-sm mb-sm">
+                <div class="input-group">
+                  <label class="input-label">Teléfono WhatsApp</label>
+                  <input type="tel" id="v-user-phone" class="input-field" placeholder="88776655">
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Contraseña de Seguridad *</label>
+                  <input type="password" id="v-user-pass" class="input-field" placeholder="••••••••" required>
+                </div>
+              </div>
+              <span
+                style="font-size: 10px; color: var(--text-muted); display: block; margin-top: -6px; margin-bottom: 12px;">Mínimo
+                8 caracteres, incluye mayúscula, minúscula, número y símbolo.</span>
+
+              <div class="flex gap-sm mt-lg">
+                <button type="button" onclick="switchRegStep(1)" class="btn btn-secondary">Atrás</button>
+                <button type="button" onclick="validateAndGoToStep(2)" class="btn btn-primary flex-grow">Siguiente:
+                  Datos del Negocio <i class="ph-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- PASO 2: PERFIL DEL NEGOCIO -->
+            <div id="v-wiz-step-2" class="wizard-substep" style="display:none;">
+              <div class="auth-header">
+                <h3>Paso 2: Perfil de tu Negocio</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Define el
+                  nombre comercial y descripción de tus servicios.</p>
+              </div>
+
+              <div class="input-group mb-sm">
+                <label class="input-label">Nombre Comercial del Negocio *</label>
+                <input type="text" id="v-biz-name" class="input-field" placeholder="Karla Solano Studio" required>
+              </div>
+
+              <div class="input-group mb-sm">
+                <label class="input-label">Categoría Principal del Servicio *</label>
+                <select id="v-biz-category" class="input-field select-field" required>
+                  <option value="belleza">Belleza y Estética</option>
+                  <option value="hogar">Servicios del Hogar</option>
+                  <option value="tecnologia">Tecnología y Diseño</option>
+                  <option value="gastronomia">Gastronomía y Eventos</option>
+                  <option value="educacion">Educación y Tutorías</option>
+                  <option value="servicios">Servicios Profesionales</option>
+                </select>
+              </div>
+
+              <div class="input-group mb-md">
+                <label class="input-label">Descripción del Negocio / Servicios *</label>
+                <textarea id="v-biz-desc" class="input-field" rows="3" style="resize:none;"
+                  placeholder="Describe qué ofreces, tu experiencia y lo que te diferencia en el mercado..."
+                  required></textarea>
+              </div>
+
+              <div class="flex gap-sm mt-lg">
+                <button type="button" onclick="goToVendorStep(1)" class="btn btn-secondary">Atrás</button>
+                <button type="button" onclick="validateAndGoToStep(3)" class="btn btn-primary flex-grow">Siguiente:
+                  Identificación <i class="ph-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- PASO 3: IDENTIFICACIÓN DEL EMPRENDEDOR & KYC -->
+            <div id="v-wiz-step-3" class="wizard-substep" style="display:none;">
+              <div class="auth-header">
+                <h3>Paso 3: Identificación del Emprendedor</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Verificación
+                  de identidad oficial para garantizar seguridad en MEG.</p>
+              </div>
+
+              <label class="input-label mb-xs">¿El negocio cuenta con Cédula Jurídica registrada?</label>
+              <div class="grid grid-2 gap-sm mb-md text-center">
+                <button type="button" id="btn-kyc-juridica-yes" class="btn btn-secondary active-kyc-btn"
+                  onclick="toggleKycType('juridica')">
+                  <i class="ph-buildings"></i> Sí, tengo Cédula Jurídica
+                </button>
+                <button type="button" id="btn-kyc-juridica-no" class="btn btn-secondary"
+                  onclick="toggleKycType('personal')">
+                  <i class="ph-user-check"></i> No, es Persona Física
+                </button>
+              </div>
+
+              <!-- OPCIÓN SÍ: Cédula Jurídica -->
+              <div id="kyc-juridica-container" class="input-group mb-sm">
+                <label class="input-label">Número de Cédula Jurídica (3-101-XXXXXX) *</label>
+                <input type="text" id="v-kyc-juridica-num" class="input-field mb-xs" placeholder="3-101-123456">
+
+                <input type="file" id="v-kyc-juridica-file" accept="image/*,.pdf" style="display:none;"
+                  onchange="handleJuridicaFileSelect(event)">
+                <div class="upload-zone p-sm text-center" id="v-juridica-dropzone"
+                  onclick="document.getElementById('v-kyc-juridica-file').click()">
+                  <div id="v-juridica-text">
+                    <i class="ph-file-arrow-up upload-icon" style="font-size:24px;"></i>
+                    <p style="font-size: 11px; font-weight:600; margin:0;">Subir Documento de Cédula Jurídica (PDF o
+                      Imagen)</p>
+                    <span style="font-size: 10px; color: var(--text-muted);">Haz clic para seleccionar el archivo de tu
+                      equipo</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- OPCIÓN NO: Cédula Personal + Selfie -->
+              <div id="kyc-personal-container" style="display:none;">
+                <div class="input-group mb-sm">
+                  <label class="input-label">Número de Cédula de Identidad Personal *</label>
+                  <input type="text" id="v-kyc-personal-num" class="input-field mb-xs" placeholder="1-1234-0567">
+
+                  <input type="file" id="v-kyc-personal-doc-file" accept="image/*,.pdf" style="display:none;"
+                    onchange="handlePersonalDocFileSelect(event)">
+                  <div class="upload-zone p-sm text-center mb-xs" id="v-personal-doc-dropzone"
+                    onclick="document.getElementById('v-kyc-personal-doc-file').click()">
+                    <div id="v-personal-doc-text">
+                      <i class="ph-file-arrow-up upload-icon" style="font-size:24px;"></i>
+                      <p style="font-size: 11px; font-weight:600; margin:0;">Subir Documento / Foto de Cédula de
+                        Identidad</p>
+                      <span style="font-size: 10px; color: var(--text-muted);">Haz clic para seleccionar el
+                        archivo</span>
+                    </div>
+                  </div>
+                </div>
+
+                <input type="file" id="v-selfie-file" accept="image/*" style="display:none;"
+                  onchange="handleSelfieFileSelect(event)">
+                <div class="upload-zone p-sm text-center" id="v-selfie-dropzone"
+                  onclick="document.getElementById('v-selfie-file').click()">
+                  <div id="v-selfie-text">
+                    <i class="ph-camera upload-icon" style="font-size:28px;"></i>
+                    <p style="font-size: 11px; font-weight:600; margin:0;">Subir Selfie con Cédula en mano *</p>
+                    <span style="font-size: 10px; color: var(--text-muted);">Haz clic para seleccionar tu foto
+                      biométrica</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-between align-center p-sm mt-xs mb-md"
+                style="background-color: var(--bg-secondary); border-radius: 6px;">
+                <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Estado de la
+                  Documentación:</span>
+                <span id="v-kyc-badge" class="badge badge-verified-identity"><i class="ph-shield-check"></i> Documento
+                  Cargado</span>
+              </div>
+
+              <div class="flex gap-sm mt-lg">
+                <button type="button" onclick="goToVendorStep(2)" class="btn btn-secondary">Atrás</button>
+                <button type="button" onclick="validateAndGoToStep(4)" class="btn btn-primary flex-grow">Siguiente:
+                  Ubicación <i class="ph-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- PASO 4: DIRECCIÓN FÍSICA Y GOOGLE MAPS -->
+            <div id="v-wiz-step-4" class="wizard-substep" style="display:none;">
+              <div class="auth-header">
+                <h3>Paso 4: Ubicación del Negocio</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Selecciona la
+                  ubicación exacta de tu local o cobertura en el mapa.</p>
+              </div>
+
+              <div class="input-group mb-sm">
+                <label class="input-label">Buscar dirección (Google Places Autocomplete) *</label>
+                <input type="text" id="v-map-search-input" class="input-field"
+                  placeholder="Escribe tu cantón, comunidad o seña..." required>
+              </div>
+
+              <!-- Contenedor del Mapa Interactivo de Google Maps -->
+              <div id="v-google-map"
+                style="width: 100%; height: 220px; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color); position: relative;">
+                <div id="v-map-fallback-msg"
+                  style="position: absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#161f36; color:#8F99A9; font-size:12px; text-align:center; padding:16px;">
+                  <i class="ph-map-pin-line"
+                    style="font-size:36px; color:var(--color-accent-blue); margin-bottom:8px;"></i>
+                  <span>Arrastra el marcador en el mapa para ajustar tus coordenadas exactas.</span>
+                </div>
+              </div>
+
+              <div class="grid grid-2 gap-sm text-left mt-sm">
+                <div class="input-group">
+                  <label class="input-label">Latitud</label>
+                  <input type="text" id="v-map-lat" class="input-field" value="9.9281" readonly style="font-size:11px;">
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Longitud</label>
+                  <input type="text" id="v-map-lng" class="input-field" value="-84.0907" readonly
+                    style="font-size:11px;">
+                </div>
+              </div>
+
+              <div class="flex gap-sm mt-lg">
+                <button type="button" onclick="goToVendorStep(3)" class="btn btn-secondary">Atrás</button>
+                <button type="button" onclick="validateAndGoToStep(5)" class="btn btn-primary flex-grow">Siguiente:
+                  Horarios <i class="ph-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- PASO 5: HORARIO DEL NEGOCIO -->
+            <div id="v-wiz-step-5" class="wizard-substep" style="display:none;">
+              <div class="auth-header">
+                <h3>Paso 5: Horarios de Atención</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Indica qué
+                  días labora tu negocio y tus horas de atención.</p>
+              </div>
+
+              <div class="schedule-matrix-container mb-md"
+                style="max-height: 240px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 6px;">
+                <div class="schedule-day-row" data-day="Lunes">
+                  <label style="font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                    <input type="checkbox" class="v-sch-active" checked> Lunes
+                  </label>
+                  <div class="flex gap-xs align-center">
+                    <input type="time" class="input-field v-sch-open" value="08:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                    <span style="font-size:10px;">a</span>
+                    <input type="time" class="input-field v-sch-close" value="17:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                  </div>
+                </div>
+                <div class="schedule-day-row" data-day="Martes">
+                  <label style="font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                    <input type="checkbox" class="v-sch-active" checked> Martes
+                  </label>
+                  <div class="flex gap-xs align-center">
+                    <input type="time" class="input-field v-sch-open" value="08:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                    <span style="font-size:10px;">a</span>
+                    <input type="time" class="input-field v-sch-close" value="17:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                  </div>
+                </div>
+                <div class="schedule-day-row" data-day="Miércoles">
+                  <label style="font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                    <input type="checkbox" class="v-sch-active" checked> Miércoles
+                  </label>
+                  <div class="flex gap-xs align-center">
+                    <input type="time" class="input-field v-sch-open" value="08:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                    <span style="font-size:10px;">a</span>
+                    <input type="time" class="input-field v-sch-close" value="17:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                  </div>
+                </div>
+                <div class="schedule-day-row" data-day="Jueves">
+                  <label style="font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                    <input type="checkbox" class="v-sch-active" checked> Jueves
+                  </label>
+                  <div class="flex gap-xs align-center">
+                    <input type="time" class="input-field v-sch-open" value="08:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                    <span style="font-size:10px;">a</span>
+                    <input type="time" class="input-field v-sch-close" value="17:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                  </div>
+                </div>
+                <div class="schedule-day-row" data-day="Viernes">
+                  <label style="font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                    <input type="checkbox" class="v-sch-active" checked> Viernes
+                  </label>
+                  <div class="flex gap-xs align-center">
+                    <input type="time" class="input-field v-sch-open" value="08:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                    <span style="font-size:10px;">a</span>
+                    <input type="time" class="input-field v-sch-close" value="17:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                  </div>
+                </div>
+                <div class="schedule-day-row" data-day="Sábado">
+                  <label style="font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                    <input type="checkbox" class="v-sch-active"> Sábado
+                  </label>
+                  <div class="flex gap-xs align-center">
+                    <input type="time" class="input-field v-sch-open" value="09:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                    <span style="font-size:10px;">a</span>
+                    <input type="time" class="input-field v-sch-close" value="14:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                  </div>
+                </div>
+                <div class="schedule-day-row" data-day="Domingo">
+                  <label style="font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                    <input type="checkbox" class="v-sch-active"> Domingo
+                  </label>
+                  <div class="flex gap-xs align-center">
+                    <input type="time" class="input-field v-sch-open" value="09:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                    <span style="font-size:10px;">a</span>
+                    <input type="time" class="input-field v-sch-close" value="14:00"
+                      style="padding:2px 4px; font-size:11px; width:75px;">
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex gap-sm mt-lg">
+                <button type="button" onclick="goToVendorStep(4)" class="btn btn-secondary">Atrás</button>
+                <button type="button" onclick="validateAndGoToStep(6)" class="btn btn-primary flex-grow">Siguiente:
+                  Portada <i class="ph-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- PASO 6: IMAGEN DE PORTADA -->
+            <div id="v-wiz-step-6" class="wizard-substep" style="display:none;">
+              <div class="auth-header">
+                <h3>Paso 6: Imagen de Portada</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Sube una foto
+                  representativa de tu local o servicios profesionales.</p>
+              </div>
+
+              <input type="file" id="v-cover-file" accept="image/*" style="display:none;"
+                onchange="handleCoverFileSelect(event)">
+              <div id="v-cover-dropzone" class="upload-zone" onclick="document.getElementById('v-cover-file').click()">
+                <i class="ph-image-square upload-icon"></i>
+                <p style="font-size: var(--font-size-sm); font-weight:600; margin: 0 0 4px 0;">Seleccionar imagen de
+                  portada</p>
+                <span style="font-size: 11px; color: var(--text-muted);">Formato JPG o PNG hasta 5MB</span>
+              </div>
+
+              <div id="v-cover-preview-container" style="display:none;" class="mb-md">
+                <img id="v-cover-img-preview" src="" class="cover-preview-box mb-xs" alt="Portada del negocio">
+                <div class="flex justify-between align-center">
+                  <span style="font-size: 11px; color: var(--color-accent-mint);"><i class="ph-check-circle"></i> Imagen
+                    cargada con éxito</span>
+                  <button type="button" class="btn btn-tertiary btn-sm" onclick="removeCoverImage()"
+                    style="color:var(--color-danger); font-size:11px;">Eliminar imagen</button>
+                </div>
+              </div>
+
+              <div class="flex gap-sm mt-lg">
+                <button type="button" onclick="goToVendorStep(5)" class="btn btn-secondary">Atrás</button>
+                <button type="button" onclick="validateAndGoToStep(7)" class="btn btn-primary flex-grow">Siguiente:
+                  Resumen <i class="ph-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- PASO 7: CONFIRMACIÓN Y RESUMEN FINAL -->
+            <div id="v-wiz-step-7" class="wizard-substep" style="display:none;">
+              <div class="auth-header">
+                <h3>Paso 7: Resumen y Confirmación</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Revisa la
+                  información antes de crear tu negocio en la base de datos real de MEG.</p>
+              </div>
+
+              <div class="summary-box card p-md mb-md text-left"
+                style="font-size: var(--font-size-xs); background-color: var(--bg-secondary);">
+                <div class="mb-xs"><strong>Emprendedor:</strong> <span id="sum-user-name"></span> (<span
+                    id="sum-user-email"></span>)</div>
+                <div class="mb-xs"><strong>Negocio:</strong> <span id="sum-biz-name"></span> - <span
+                    id="sum-biz-cat"></span></div>
+                <div class="mb-xs"><strong>Identificación:</strong> <span id="sum-kyc-type"></span> - Estado: <span
+                    id="sum-kyc-status">Cargado</span></div>
+                <div class="mb-xs"><strong>Ubicación:</strong> <span id="sum-address"></span> (Lat: <span
+                    id="sum-lat"></span>, Lng: <span id="sum-lng"></span>)</div>
+                <div class="mb-xs"><strong>Días Laborales:</strong> <span id="sum-schedule-days"></span></div>
+              </div>
+
+              <button type="button" id="btn-create-business-final" onclick="handleVendorRegisterFull()"
+                class="btn btn-primary w-full mt-md">
+                <i class="ph-check-circle"></i> Crear mi negocio
+              </button>
+              <button type="button" onclick="goToVendorStep(6)" class="btn btn-secondary w-full mt-xs">Atrás</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Container 2: Verification Flow (Initialized hidden) -->
+      <div id="verification-flow-container" style="display: none;">
+
+        <!-- VERIFICATION STEP 1: Upload identity document -->
+        <div id="verif-step1" class="step-panel active">
+          <div class="auth-header">
+            <span class="badge badge-verified-identity mb-xs"><i class="ph-shield-check"></i> Paso 1 de 2</span>
+            <h3>Sube tu Identidad (Cédula)</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Sube una
+              fotografía nítida de tu Cédula de Identidad o DIMEX (frente y reverso).</p>
+          </div>
+
+          <div class="upload-zone" id="upload-id-zone">
+            <div id="upload-id-text">
+              <i class="ph-cloud-arrow-up upload-icon"></i>
+              <p style="font-size: var(--font-size-sm); font-weight:600; margin: 0 0 var(--spacing-xs) 0;">Arrastra tu
+                documento aquí</p>
+              <span style="font-size: 11px; color: var(--text-muted);">o haz click para seleccionar archivo (JPG, PNG,
+                PDF)</span>
+            </div>
+          </div>
+
+          <button id="btn-verif-step1-next" class="btn btn-primary w-full mt-lg">Continuar <i
+              class="ph-arrow-right"></i></button>
+        </div>
+
+        <!-- VERIFICATION STEP 2: Selfie Document -->
+        <div id="verif-step2" class="step-panel">
+          <div class="auth-header">
+            <span class="badge badge-verified-identity mb-xs"><i class="ph-shield-check"></i> Paso 2 de 2</span>
+            <h3>Selfie con tu Identidad</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">Tómate una foto
+              sosteniendo tu documento de identidad junto a tu rostro para validar la autenticidad biometríca.</p>
+          </div>
+
+          <div class="upload-zone" id="upload-selfie-zone">
+            <div id="upload-selfie-text">
+              <i class="ph-camera upload-icon"></i>
+              <p style="font-size: var(--font-size-sm); font-weight:600; margin: 0 0 var(--spacing-xs) 0;">Arrastra tu
+                selfie aquí</p>
+              <span style="font-size: 11px; color: var(--text-muted);">Asegúrate de que tu rostro y documento sean
+                legibles</span>
+            </div>
+          </div>
+
+          <button id="btn-verif-step2-next" class="btn btn-primary w-full mt-lg">Enviar a revisión</button>
+        </div>
+
+        <!-- VERIFICATION STEP 3: Pending review approval -->
+        <div id="verif-step3" class="step-panel">
+          <div class="verif-box">
+            <div class="verif-spinner">
+              <i class="ph-clock-counter-clockwise"></i>
+            </div>
+
+            <h3>Verificación en revisión</h3>
+            <span class="badge badge-verified-identity"><i class="ph-shield-check"></i> Identidad confirmada por
+              GEM</span>
+
+            <p
+              style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6; max-width: 320px; margin: var(--spacing-sm) 0 var(--spacing-lg) 0;">
+              Tu documentación se está validando. Estará listo en un periodo estimado de <strong>24 a 48 horas</strong>.
+              Ya puedes ingresar a configurar tu panel.
+            </p>
+
+            <a href="dashboard-proveedor.html" class="btn btn-primary w-full">Ingresar a mi panel</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 GEM CR. Todos los derechos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/apiClient.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

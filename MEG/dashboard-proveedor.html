@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Panel de Control del Proveedor | MEG</title>
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/dashboard.css">
+
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+
+<body>
+  <!-- Pantalla de Carga (Loading Screen) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <div class="meg-logo-animation">
+        <svg id="meg-loading-svg" viewBox="0 0 200 200" width="160" height="160">
+          <defs>
+            <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1A3FD6" />
+              <stop offset="50%" stop-color="#00D2C4" />
+              <stop offset="100%" stop-color="#7B6FE8" />
+            </linearGradient>
+          </defs>
+          <path id="svg-arc" class="svg-arc" d="M 40 100 A 60 60 0 1 1 160 100" fill="none" stroke="url(#arc-gradient)"
+            stroke-width="8" stroke-linecap="round" />
+          <g id="svg-network" class="svg-network">
+            <line id="line-1" x1="70" y1="80" x2="100" y2="70" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-2" x1="100" y1="70" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-3" x1="70" y1="80" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-4" x1="85" y1="110" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-5" x1="115" y1="110" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-6" x1="100" y1="70" x2="100" y2="100" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-7" x1="100" y1="100" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-8" x1="100" y1="100" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <circle id="node-1" cx="70" cy="80" r="6" fill="#1A3FD6" />
+            <circle id="node-2" cx="100" cy="70" r="6" fill="#00D2C4" />
+            <circle id="node-3" cx="130" cy="80" r="6" fill="#7B6FE8" />
+            <circle id="node-4" cx="85" cy="110" r="6" fill="#7B6FE8" />
+            <circle id="node-5" cx="100" cy="100" r="6" fill="#1A3FD6" />
+            <circle id="node-6" cx="115" cy="110" r="6" fill="#00D2C4" />
+          </g>
+          <g id="svg-particles" class="svg-particles">
+            <circle cx="145" cy="45" r="3.5" fill="#00D2C4" opacity="0" class="particle-dot" />
+            <circle cx="155" cy="55" r="4.5" fill="#7B6FE8" opacity="0" class="particle-dot" />
+            <circle cx="160" cy="40" r="3" fill="#1A3FD6" opacity="0" class="particle-dot" />
+          </g>
+        </svg>
+        <h1 class="meg-loading-text">MEG</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dash-shell">
+
+    <!-- Sidebar Left Navigation -->
+    <aside class="dash-sidebar">
+      <div class="dash-logo">MEG Panel</div>
+
+      <div class="dash-user-card">
+        <img id="dash-prov-avatar"
+          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=100&h=100"
+          alt="Karla Solano" class="dash-user-avatar">
+        <div>
+          <strong style="font-size: var(--font-size-sm); display: block;">Karla Solano</strong>
+          <span class="badge badge-top-provider" style="font-size: 9px; padding: 2px 6px;">Plan Pro</span>
+        </div>
+      </div>
+
+      <nav class="dash-nav">
+        <a href="#" class="dash-nav-link active" data-tab="inicio"><i class="ph-squares-four"></i> Inicio</a>
+        <a href="#" class="dash-nav-link" data-tab="servicios"><i class="ph-list-bullets"></i> Mis servicios</a>
+        <a href="#" class="dash-nav-link" data-tab="solicitudes"><i class="ph-clipboard-text"></i> Solicitudes <span
+            style="background-color: var(--color-accent-purple); color: white; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; margin-left: auto;">1</span></a>
+        <a href="#" class="dash-nav-link" data-tab="mensajes"><i class="ph-chat-circle"></i> Mensajes</a>
+        <a href="#" class="dash-nav-link" data-tab="citas"><i class="ph-calendar"></i> Citas</a>
+        <a href="#" class="dash-nav-link" data-tab="estadisticas"><i class="ph-chart-line-up"></i> Estadísticas</a>
+        <a href="#" class="dash-nav-link" data-tab="ia"
+          style="background: rgba(123, 111, 232, 0.15); color: #FFFFFF; font-weight: bold; border-left-color: var(--color-accent-purple);"><i
+            class="ph-sparkle" style="color: var(--color-accent-purple);"></i> Herramientas IA</a>
+        <a href="#" class="dash-nav-link" data-tab="perfil"><i class="ph-user-gear"></i> Mi Perfil (API)</a>
+        <a href="perfil-proveedor.html?id=1" class="dash-nav-link" target="_blank"
+          style="margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.1);"><i class="ph-eye"></i> Ver perfil
+          público</a>
+        <a href="index.html" class="dash-nav-link"><i class="ph-sign-out"></i> Salir</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dash-content">
+
+      <!-- Panel 1: INICIO -->
+      <section id="panel-inicio" class="dash-panel active-panel">
+        <div class="progress-alert-bar flex align-center justify-between">
+          <div>
+            <strong style="color: var(--text-primary); font-size: var(--font-size-sm);"><i class="ph-warning"
+                style="color: var(--color-warning);"></i> Completa tu perfil</strong>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin: 0;">Tu perfil está al 60%.
+              Completa la foto de portada para aparecer primero en las búsquedas.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 60%"></div>
+            </div>
+          </div>
+          <a href="perfil-proveedor.html?id=1" target="_blank" class="btn btn-secondary btn-sm"
+            style="background-color: white;">Completar</a>
+        </div>
+
+        <h2 class="mb-lg">Panel de Inicio</h2>
+
+        <div class="metric-grid mb-xl">
+          <div class="metric-card">
+            <span class="metric-card-label">Solicitudes esta semana</span>
+            <strong id="kpi-solicitudes" class="metric-card-value"></strong>
+            <span class="metric-card-trend trend-up"><i class="ph-trend-up"></i> +12%</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card-label">Nuevos clientes este mes</span>
+            <strong id="kpi-clientes" class="metric-card-value"></strong>
+            <span class="metric-card-trend trend-up"><i class="ph-trend-up"></i> +8%</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card-label">Ingresos estimados</span>
+            <strong id="kpi-ingresos" class="metric-card-value"></strong>
+            <span class="metric-card-trend trend-up"><i class="ph-trend-up"></i> +15%</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card-label">Reputación actual</span>
+            <strong id="kpi-reputacion" class="metric-card-value"></strong>
+            <span class="metric-card-trend" style="color: var(--color-accent-mint);"><i class="ph-star-fill"></i>
+              Excelente</span>
+          </div>
+        </div>
+
+        <div class="grid grid-2 text-left">
+          <div class="card">
+            <h4 class="mb-md">Acciones Rápidas</h4>
+            <div class="flex flex-col gap-sm">
+              <button class="btn btn-primary" onclick="openModal('service-modal')"><i class="ph-plus-circle"></i>
+                Publicar nuevo servicio</button>
+              <button class="btn btn-secondary" onclick="switchTab('ia')"><i class="ph-sparkle"></i> Redactar cotización
+                con IA</button>
+              <a href="perfil-proveedor.html?id=1" target="_blank" class="btn btn-secondary text-center"><i
+                  class="ph-eye"></i> Ver mi perfil público</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4 class="mb-md">Consejo de Crecimiento MEG IA</h4>
+            <div
+              style="background-color: var(--color-accent-purple-light); border: 1px solid rgba(123, 111, 232, 0.25); border-radius: var(--border-radius-sm); padding: var(--spacing-md); color: var(--color-accent-purple);">
+              <p style="font-size: var(--font-size-sm); margin: 0; line-height: 1.6; font-weight: 500;">
+                💡 <strong>Sugerencia de hoy:</strong> Los clientes en Heredia suelen buscar servicios de maquillaje los
+                viernes por la noche. Considera ampliar tu horario de disponibilidad para esos días para capturar un 30%
+                más de cotizaciones.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 2: MIS SERVICIOS -->
+      <section id="panel-servicios" class="dash-panel">
+        <div class="flex justify-between align-center mb-lg">
+          <h2>Mis Servicios Publicados</h2>
+          <button id="btn-new-service" class="btn btn-primary"><i class="ph-plus-circle"></i> Nuevo Servicio</button>
+        </div>
+        <div id="services-list-container" class="flex flex-col gap-md">
+          <!-- Servicios listados dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Panel 3: SOLICITUDES -->
+      <section id="panel-solicitudes" class="dash-panel">
+        <h2 class="mb-lg">Solicitudes de Clientes</h2>
+        <div id="requests-list-container">
+          <!-- Solicitudes listadas dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Panel 4: MENSAJES -->
+      <section id="panel-mensajes" class="dash-panel">
+        <h2 class="mb-lg">Mensajería Interna</h2>
+
+        <div class="chat-wrapper">
+          <!-- Chat list (left) -->
+          <div class="chat-sidebar" id="chat-list-container">
+            <!-- Cargado dinámicamente -->
+          </div>
+
+          <!-- Chat area (right) -->
+          <div class="chat-main" style="position: relative; height: 100%;">
+            <!-- Empty state -->
+            <div id="chat-empty-state" class="flex flex-col align-center justify-center text-center"
+              style="height: 100%; padding: var(--spacing-xl); background-color: var(--bg-primary);">
+              <i class="ph-chat-circle-dots" style="font-size: 48px; color: var(--text-muted);"></i>
+              <h4 class="mt-sm">Tus Conversaciones</h4>
+              <p style="font-size: var(--font-size-sm); color: var(--text-secondary); max-width: 300px;">Selecciona un
+                chat de la lista izquierda para iniciar la conversación.</p>
+            </div>
+
+            <!-- Active Conversation -->
+            <div id="active-chat-window" style="display: none; flex-direction: column; height: 100%;">
+              <header class="chat-active-header" id="chat-active-header">
+                <!-- Header del chat dinámico -->
+              </header>
+
+              <div class="chat-messages" id="chat-messages-container">
+                <!-- Burbujas de chat -->
+              </div>
+
+              <footer class="chat-input-area">
+                <input type="text" id="chat-input-field" class="input-field" placeholder="Escribe un mensaje aquí..."
+                  style="border-radius: var(--border-radius-lg);">
+                <button id="chat-btn-send" class="btn btn-primary"
+                  style="border-radius: 50%; width: 40px; height: 40px; padding: 0; flex-shrink:0;"><i
+                    class="ph-paper-plane-tilt"></i></button>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 5: CITAS -->
+      <section id="panel-citas" class="dash-panel">
+        <h2 class="mb-lg">Agenda de Citas</h2>
+        <div class="card">
+          <div id="dashboard-appointments-list" class="flex flex-col gap-sm">
+            <!-- Citas listadas dinámicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 6: ESTADÍSTICAS -->
+      <section id="panel-estadisticas" class="dash-panel">
+        <h2 class="mb-lg">Estadísticas de Rendimiento</h2>
+        <div class="grid grid-2 text-left">
+          <div class="card">
+            <h4>Visitas a tu Perfil</h4>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+              Evolución de visitas únicas en los últimos 6 meses.</p>
+            <div id="analytics-chart-line">
+              <!-- Cargado dinámicamente por dashboard.js -->
+            </div>
+          </div>
+
+          <div class="card flex flex-col justify-between">
+            <div>
+              <h4>Resumen del Mes</h4>
+              <p
+                style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+                Indicadores acumulados de junio 2026.</p>
+              <div class="flex justify-between py-sm" style="border-bottom: 1px solid var(--border-color);">
+                <span>Tasa de Conversión</span>
+                <strong>4.8%</strong>
+              </div>
+              <div class="flex justify-between py-sm" style="border-bottom: 1px solid var(--border-color);">
+                <span>Tiempo de Respuesta</span>
+                <strong>22 min</strong>
+              </div>
+              <div class="flex justify-between py-sm">
+                <span>Valor Promedio Servicio</span>
+                <strong>¢24,500</strong>
+              </div>
+            </div>
+            <button class="btn btn-secondary w-full mt-lg">Exportar reporte mensual (PDF)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 7: HERRAMIENTAS IA -->
+      <section id="panel-ia" class="dash-panel">
+        <div class="card mb-lg" style="border-color: rgba(123, 111, 232, 0.3);">
+          <div class="flex align-center gap-md mb-md">
+            <div
+              style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-blue) 100%); color: white; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+              <i class="ph-sparkle"></i>
+            </div>
+            <div>
+              <h3 style="margin: 0; font-size: var(--font-size-lg);">MEG Asistente IA</h3>
+              <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin:0;">Herramientas avanzadas
+                de productividad para acelerar el crecimiento de tu negocio.</p>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Selecciona la Herramienta</label>
+            <select id="ia-tool-select" class="input-field select-field">
+              <option value="descripcion">Generador de Descripción de Servicios</option>
+              <option value="cotizacion">Creador de Cotizaciones Formales</option>
+              <option value="anuncio">Redactor de Anuncios para Redes Sociales</option>
+              <option value="consejo">Asistente y Auditoría de Perfil</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Describe tu servicio, trabajo o necesidad</label>
+            <textarea id="ia-input-text" class="input-field"
+              placeholder="Ej: Maquillaje profesional a domicilio en la zona de Heredia para bodas y graduaciones, usando maquillaje hipoalergénico..."
+              rows="4" style="resize:none;"></textarea>
+          </div>
+
+          <button id="btn-ia-generar" class="btn btn-ia w-full mt-md"><i class="ph-sparkle"></i> Generar con MEG
+            IA</button>
+
+          <!-- Loading Spinner -->
+          <div id="ia-loading-spinner" class="ia-loading-overlay">
+            <div class="spinner"></div>
+            <span
+              style="font-size: var(--font-size-sm); color: var(--color-accent-purple); font-weight: 600;">Procesando
+              ideas con MEG IA...</span>
+          </div>
+
+          <!-- Output Box -->
+          <div id="ia-result-box" class="ia-output-container" style="display: none;">
+            <div class="flex justify-between align-center mb-sm">
+              <span
+                style="font-size: 11px; text-transform: uppercase; color: var(--color-accent-purple); font-weight: 700;">Resultado
+                Sugerido</span>
+              <button onclick="copiarTextoIa()" class="btn btn-tertiary btn-sm"
+                style="color: var(--color-accent-purple); font-weight: bold;"><i class="ph-copy"></i> Copiar
+                texto</button>
+            </div>
+            <textarea id="ia-output-text" class="input-field" rows="10"
+              style="resize: none; font-family: monospace; font-size: var(--font-size-xs); line-height: 1.6; background-color: white; border-color: rgba(123, 111, 232, 0.25);"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 8: MI PERFIL API REAL -->
+      <section id="panel-perfil" class="dash-panel">
+        <h2 class="mb-lg">Mi Perfil de Usuario y Seguridad (API Real)</h2>
+
+        <div class="grid grid-2 gap-lg text-left mb-xl">
+          <!-- Formulario Actualizar Datos de Perfil (PATCH /users/me) -->
+          <div class="card">
+            <h4 class="mb-md"><i class="ph-user-focus"></i> Datos Personales</h4>
+            <form id="form-prov-update-profile">
+              <div class="input-group mb-sm">
+                <label class="input-label">Nombre Completo</label>
+                <input type="text" id="prov-profile-name" class="input-field" required>
+              </div>
+              <div class="input-group mb-sm">
+                <label class="input-label">Teléfono</label>
+                <input type="tel" id="prov-profile-phone" class="input-field" placeholder="88888888">
+              </div>
+              <div class="input-group mb-md">
+                <label class="input-label">Correo Electrónico (Solo lectura)</label>
+                <input type="email" id="prov-profile-email" class="input-field" readonly style="opacity: 0.7;">
+              </div>
+              <button type="submit" class="btn btn-primary w-full">Guardar Cambios (PATCH /users/me)</button>
+            </form>
+          </div>
+
+          <!-- Formulario Cambiar Contraseña (POST /users/me/password) -->
+          <div class="card">
+            <h4 class="mb-md"><i class="ph-lock-key"></i> Seguridad y Contraseña</h4>
+            <form id="form-prov-change-password">
+              <div class="input-group mb-sm">
+                <label class="input-label">Contraseña Actual</label>
+                <input type="password" id="prov-pass-current" class="input-field" required>
+              </div>
+              <div class="input-group mb-md">
+                <label class="input-label">Nueva Contraseña (mínimo 8)</label>
+                <input type="password" id="prov-pass-new" class="input-field" required>
+              </div>
+              <button type="submit" class="btn btn-secondary w-full">Actualizar Contraseña</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card p-md border-danger mt-lg"
+          style="border: 1px solid rgba(220, 53, 69, 0.3); background-color: rgba(220, 53, 69, 0.04);">
+          <div class="flex justify-between align-center">
+            <div>
+              <h4 style="color: var(--color-danger); margin:0;"><i class="ph-warning"></i> Desactivar Cuenta</h4>
+              <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin: 4px 0 0 0;">Desactiva
+                temporalmente tu cuenta de usuario en MEG (POST /users/me/deactivate).</p>
+            </div>
+            <button type="button" id="btn-prov-deactivate-account" class="btn btn-tertiary btn-sm"
+              style="color: var(--color-danger); border: 1px solid var(--color-danger);">Desactivar Cuenta</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Modal: Crear nuevo servicio -->
+  <div id="service-modal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title">Publicar Nuevo Servicio</h4>
+        <span class="modal-close" onclick="closeModal('service-modal')">&times;</span>
+      </div>
+
+      <form id="form-add-service">
+        <div class="input-group">
+          <label class="input-label">Nombre del Servicio</label>
+          <input type="text" id="new-service-name" class="input-field" placeholder="Ej: Cepillado + Ondas" required>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Descripción</label>
+          <textarea id="new-service-desc" class="input-field" placeholder="Detalla en qué consiste el servicio..."
+            rows="3" style="resize:none;" required></textarea>
+        </div>
+
+        <div class="grid grid-2 text-left gap-sm">
+          <div class="input-group">
+            <label class="input-label">Precio en Colones</label>
+            <input type="number" id="new-service-price" class="input-field" placeholder="Ej: 15000" required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Duración Estimada</label>
+            <input type="text" id="new-service-duration" class="input-field" placeholder="Ej: 45m" required>
+          </div>
+        </div>
+
+        <div class="flex gap-sm mt-lg">
+          <button type="submit" class="btn btn-primary flex-grow">Publicar Servicio</button>
+          <button type="button" onclick="closeModal('service-modal')" class="btn btn-secondary">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/apiClient.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/ia.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Planes y Precios para Proveedores | MEG</title>
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/planes.css">
+
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+
+<body>
+  <!-- Pantalla de Carga (Loading Screen) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <div class="meg-logo-animation">
+        <svg id="meg-loading-svg" viewBox="0 0 200 200" width="160" height="160">
+          <defs>
+            <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1A3FD6" />
+              <stop offset="50%" stop-color="#00D2C4" />
+              <stop offset="100%" stop-color="#7B6FE8" />
+            </linearGradient>
+          </defs>
+          <path id="svg-arc" class="svg-arc" d="M 40 100 A 60 60 0 1 1 160 100" fill="none" stroke="url(#arc-gradient)"
+            stroke-width="8" stroke-linecap="round" />
+          <g id="svg-network" class="svg-network">
+            <line id="line-1" x1="70" y1="80" x2="100" y2="70" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-2" x1="100" y1="70" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-3" x1="70" y1="80" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-4" x1="85" y1="110" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-5" x1="115" y1="110" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-6" x1="100" y1="70" x2="100" y2="100" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-7" x1="100" y1="100" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-8" x1="100" y1="100" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <circle id="node-1" cx="70" cy="80" r="6" fill="#1A3FD6" />
+            <circle id="node-2" cx="100" cy="70" r="6" fill="#00D2C4" />
+            <circle id="node-3" cx="130" cy="80" r="6" fill="#7B6FE8" />
+            <circle id="node-4" cx="85" cy="110" r="6" fill="#7B6FE8" />
+            <circle id="node-5" cx="100" cy="100" r="6" fill="#1A3FD6" />
+            <circle id="node-6" cx="115" cy="110" r="6" fill="#00D2C4" />
+          </g>
+          <g id="svg-particles" class="svg-particles">
+            <circle cx="145" cy="45" r="3.5" fill="#00D2C4" opacity="0" class="particle-dot" />
+            <circle cx="155" cy="55" r="4.5" fill="#7B6FE8" opacity="0" class="particle-dot" />
+            <circle cx="160" cy="40" r="3" fill="#1A3FD6" opacity="0" class="particle-dot" />
+          </g>
+        </svg>
+        <h1 class="meg-loading-text">MEG</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled">
+    <div class="container">
+      <div class="logo-container" onclick="window.location.href='index.html'">
+        <div class="logo-icon"><img src="logo.png" alt=""></div>
+        <span>MEG</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="busqueda.html" class="nav-link">Explorar servicios</a>
+        <a href="index.html#seccion-proveedores" class="nav-link">Para proveedores</a>
+        <a href="planes.html" class="nav-link">Planes y Precios</a>
+      </div>
+
+      <div class="nav-ctas">
+        <!-- Rellenado por router.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Pricing Cards Header Section -->
+  <section class="pricing-section">
+    <div class="container">
+      <h1 class="mb-sm">Planes que impulsan tu negocio</h1>
+      <p class="mb-xl" style="color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;">
+        Elige el plan ideal para publicar tus servicios en Costa Rica. Cancela o cambia de plan cuando quieras.</p>
+
+      <!-- Toggle Billing Period -->
+      <div class="pricing-toggle-wrapper">
+        <span style="font-size: var(--font-size-sm); font-weight: 600; color: var(--text-secondary);">Facturación
+          Mensual</span>
+        <label class="toggle-container">
+          <input type="checkbox" id="billing-cycle-toggle" style="display:none;">
+          <div class="toggle-switch"></div>
+        </label>
+        <span
+          style="font-size: var(--font-size-sm); font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+          Facturación Anual <span class="pricing-discount-badge">-20%</span>
+        </span>
+      </div>
+
+      <!-- Plan Cards Columns -->
+      <div class="pricing-grid">
+
+        <!-- Plan Básico -->
+        <div class="plan-card">
+          <h3 style="margin-bottom: var(--spacing-xs);">Plan Básico</h3>
+          <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin: 0;">Para nuevos profesionales
+            y freelances.</p>
+
+          <div class="plan-price-wrapper">
+            <span class="plan-price">¢0</span>
+            <span style="color: var(--text-secondary); font-size: var(--font-size-sm);">/ gratis por siempre</span>
+          </div>
+
+          <ul class="plan-features-list">
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Perfil público estándar</li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Publica hasta 3 servicios</li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Mensajería de texto básica</li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Recepción de solicitudes básicas</li>
+            <li class="plan-feature-item" style="color: var(--text-muted);"><i class="ph-x-circle"
+                style="color: var(--text-muted);"></i> Sin herramientas IA de productividad</li>
+            <li class="plan-feature-item" style="color: var(--text-muted);"><i class="ph-x-circle"
+                style="color: var(--text-muted);"></i> Sin estadísticas avanzadas</li>
+          </ul>
+
+          <a href="auth.html?tab=register&role=proveedor" class="btn btn-secondary w-full text-center mt-auto">Comenzar
+            gratis</a>
+        </div>
+
+        <!-- Plan Pro -->
+        <div class="plan-card premium">
+          <div class="plan-popular-tag">Popular</div>
+          <h3 style="margin-bottom: var(--spacing-xs);">Plan Pro</h3>
+          <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin: 0;">Herramientas avanzadas e
+            IA para crecer rápido.</p>
+
+          <div class="plan-price-wrapper">
+            <span id="price-pro-val" class="plan-price">¢12,500</span>
+            <span id="billing-period-label" style="color: var(--text-secondary); font-size: var(--font-size-sm);">/
+              mes<span style="display:block; font-size:10px; color:var(--text-muted); font-weight:500;">Facturado
+                mensualmente</span></span>
+          </div>
+
+          <ul class="plan-features-list">
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Perfil Pro con Portafolio ilimitado</li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Publicación ilimitada de servicios</li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Posicionamiento prioritario en búsquedas</li>
+            <li class="plan-feature-item" style="font-weight:600; color: var(--color-accent-purple);"><i
+                class="ph-sparkle" style="color: var(--color-accent-purple);"></i> Asistente de IA (Cotizaciones,
+              textos, anuncios)</li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Estadísticas avanzadas de visitas y
+              conversiones</li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Agenda de citas interactiva y recordatorios
+            </li>
+            <li class="plan-feature-item"><i class="ph-check-circle"></i> Insignia "Pro" destacada en tu perfil</li>
+          </ul>
+
+          <a href="auth.html?tab=register&role=proveedor&plan=pro" class="btn btn-ia w-full text-center mt-auto"><i
+              class="ph-sparkle"></i> Probar Plan Pro gratis</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Feature Comparison -->
+  <section class="comparison-section">
+    <div class="container">
+      <h2 class="text-center mb-lg">Comparativa Detallada de Features</h2>
+      <div
+        style="overflow-x: auto; background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--border-radius-md);">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Básico</th>
+              <th>Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Servicios Publicados</td>
+              <td>Máximo 3</td>
+              <td>Ilimitados</td>
+            </tr>
+            <tr>
+              <td>Portafolio de Trabajos</td>
+              <td>Sin fotos</td>
+              <td>Ilimitado</td>
+            </tr>
+            <tr>
+              <td>Posicionamiento en Búsquedas</td>
+              <td>Estándar</td>
+              <td>Prioritario (Aparece primero)</td>
+            </tr>
+            <tr>
+              <td>Insignia Destacada en Perfil</td>
+              <td>No</td>
+              <td>Sí (Badge "Pro" visible)</td>
+            </tr>
+            <tr>
+              <td>Herramientas de IA</td>
+              <td><i class="ph-x-circle-fill"></i> No disponible</td>
+              <td><i class="ph-check-circle-fill"></i> Acceso ilimitado</td>
+            </tr>
+            <tr>
+              <td>Gestión de Citas (Calendario)</td>
+              <td><i class="ph-x-circle-fill"></i> No disponible</td>
+              <td><i class="ph-check-circle-fill"></i> Activado</td>
+            </tr>
+            <tr>
+              <td>Reportes Estadísticos</td>
+              <td>Básicos</td>
+              <td>Completos (Visitas, conversiones)</td>
+            </tr>
+            <tr>
+              <td>Comisión por trabajo</td>
+              <td>10% por transacción</td>
+              <td>5% por transacción</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Accordions -->
+  <section class="faq-section">
+    <div class="container text-center">
+      <h2>Preguntas Frecuentes</h2>
+      <p style="color: var(--text-secondary);">Todo lo que necesitas saber sobre los planes de MEG Costa Rica.</p>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>¿Puedo cambiar de plan o cancelar en cualquier momento?</span>
+            <i class="ph-caret-down"></i>
+          </div>
+          <p class="faq-answer">Sí, no hay contratos forzosos. Si cancelas tu suscripción Pro, tu cuenta volverá
+            automáticamente al Plan Básico gratuito al finalizar el ciclo de facturación actual.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>¿Cómo funcionan las herramientas de IA en el Plan Pro?</span>
+            <i class="ph-caret-down"></i>
+          </div>
+          <p class="faq-answer">Tendrás acceso a plantillas inteligentes impulsadas por MEG IA desde tu panel. Te
+            permiten redactar descripciones profesionales de servicios, crear cotizaciones detalladas y generar copies
+            listos para publicar en tus redes sociales.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>¿Hay algún cargo extra por transacciones?</span>
+            <i class="ph-caret-down"></i>
+          </div>
+          <p class="faq-answer">Para el plan Básico cobramos una comisión del 10% por los pagos procesados en la
+            plataforma. Para el plan Pro esta comisión se reduce al 5%, permitiéndote retener mayor porcentaje de tus
+            ganancias.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 MEG CR. Todos los derechos reservados.</span>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="ph-facebook-logo"></i></a>
+          <a href="#" class="social-link"><i class="ph-instagram-logo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/apiClient.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/planes.js"></script>
+</body>
+
+</html>

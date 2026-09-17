@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Mi Cuenta | MEG</title>
+
+  <link class="page-css" rel="stylesheet" href="css/tokens.css">
+  <link class="page-css" rel="stylesheet" href="css/base.css">
+  <link class="page-css" rel="stylesheet" href="css/components.css">
+  <link class="page-css" rel="stylesheet" href="css/layout.css">
+  <link class="page-css" rel="stylesheet" href="css/pages/dashboard.css">
+
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+
+<body>
+  <!-- Pantalla de Carga (Loading Screen) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <div class="meg-logo-animation">
+        <svg id="meg-loading-svg" viewBox="0 0 200 200" width="160" height="160">
+          <defs>
+            <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1A3FD6" />
+              <stop offset="50%" stop-color="#00D2C4" />
+              <stop offset="100%" stop-color="#7B6FE8" />
+            </linearGradient>
+          </defs>
+          <path id="svg-arc" class="svg-arc" d="M 40 100 A 60 60 0 1 1 160 100" fill="none" stroke="url(#arc-gradient)"
+            stroke-width="8" stroke-linecap="round" />
+          <g id="svg-network" class="svg-network">
+            <line id="line-1" x1="70" y1="80" x2="100" y2="70" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-2" x1="100" y1="70" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-3" x1="70" y1="80" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-4" x1="85" y1="110" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-5" x1="115" y1="110" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-6" x1="100" y1="70" x2="100" y2="100" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-7" x1="100" y1="100" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-8" x1="100" y1="100" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <circle id="node-1" cx="70" cy="80" r="6" fill="#1A3FD6" />
+            <circle id="node-2" cx="100" cy="70" r="6" fill="#00D2C4" />
+            <circle id="node-3" cx="130" cy="80" r="6" fill="#7B6FE8" />
+            <circle id="node-4" cx="85" cy="110" r="6" fill="#7B6FE8" />
+            <circle id="node-5" cx="100" cy="100" r="6" fill="#1A3FD6" />
+            <circle id="node-6" cx="115" cy="110" r="6" fill="#00D2C4" />
+          </g>
+          <g id="svg-particles" class="svg-particles">
+            <circle cx="145" cy="45" r="3.5" fill="#00D2C4" opacity="0" class="particle-dot" />
+            <circle cx="155" cy="55" r="4.5" fill="#7B6FE8" opacity="0" class="particle-dot" />
+            <circle cx="160" cy="40" r="3" fill="#1A3FD6" opacity="0" class="particle-dot" />
+          </g>
+        </svg>
+        <h1 class="meg-loading-text">MEG</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dash-shell">
+
+    <!-- Sidebar Left Navigation -->
+    <aside class="dash-sidebar">
+      <div class="dash-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">MEG</div>
+
+      <div class="dash-user-card">
+        <div
+          style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--color-accent-purple); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid white;">
+          C</div>
+        <div>
+          <strong style="font-size: var(--font-size-sm); display: block;">Caleb Villalobos</strong>
+          <span style="font-size: 10px; color: var(--text-muted);">Consumidor</span>
+        </div>
+      </div>
+
+      <nav class="dash-nav">
+        <a href="#" class="dash-nav-link active" data-tab="resumen"><i class="ph-squares-four"></i> Resumen</a>
+        <a href="#" class="dash-nav-link" data-tab="solicitudes"><i class="ph-clipboard-text"></i> Mis solicitudes</a>
+        <a href="#" class="dash-nav-link" data-tab="citas"><i class="ph-calendar"></i> Mis citas</a>
+        <a href="#" class="dash-nav-link" data-tab="favoritos"><i class="ph-heart"></i> Favoritos</a>
+        <a href="#" class="dash-nav-link" data-tab="historial"><i class="ph-clock-counter-clockwise"></i> Historial</a>
+        <a href="#" class="dash-nav-link" data-tab="perfil"><i class="ph-user-gear"></i> Mi Perfil (API)</a>
+        <a href="index.html" class="dash-nav-link"
+          style="margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.1);"><i class="ph-sign-out"></i> Salir al
+          inicio</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dash-content">
+
+      <!-- Panel 1: RESUMEN -->
+      <section id="panel-resumen" class="dash-panel active-panel">
+        <h2 class="mb-lg">Resumen de Actividad</h2>
+
+        <div class="metric-grid mb-xl">
+          <div class="metric-card">
+            <span class="metric-card-label">Mis Solicitudes Activas</span>
+            <strong id="c-kpi-solicitudes" class="metric-card-value"></strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card-label">Citas Próximas</span>
+            <strong id="c-kpi-citas" class="metric-card-value"></strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card-label">Proveedores Favoritos</span>
+            <strong id="c-kpi-favoritos" class="metric-card-value"></strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card-label">Zona Geográfica</span>
+            <strong class="metric-card-value" style="font-size: var(--font-size-md);">Escazú</strong>
+          </div>
+        </div>
+
+        <div class="grid grid-2 text-left">
+          <div class="card">
+            <h4 class="mb-md">Búsqueda rápida de servicios</h4>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+              ¿Necesitas algo nuevo hoy? Encuentra profesionales verificados en la Zona Central.</p>
+            <a href="busqueda.html" class="btn btn-primary w-full text-center">Ir al buscador de MEG</a>
+          </div>
+
+          <div class="card">
+            <h4>Seguridad MEG Garantizada</h4>
+            <p
+              style="font-size: var(--font-size-xs); color: var(--text-secondary); line-height: 1.6; margin-top: var(--spacing-sm);">
+              Recuerda calificar a tus proveedores una vez terminado el trabajo. Tu calificación ayuda a mantener la
+              confianza en el ecosistema MEG Costa Rica.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 2: MIS SOLICITUDES -->
+      <section id="panel-solicitudes" class="dash-panel">
+        <h2 class="mb-lg">Historial de Solicitudes</h2>
+        <div id="c-requests-list">
+          <!-- Cargado dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Panel 3: MIS CITAS -->
+      <section id="panel-citas" class="dash-panel">
+        <h2 class="mb-lg">Próximas Citas Agendadas</h2>
+        <div class="card">
+          <div id="c-appointments-list" class="flex flex-col gap-sm">
+            <!-- Cargado dinámicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 4: FAVORITOS -->
+      <section id="panel-favoritos" class="dash-panel">
+        <h2 class="mb-lg">Proveedores Guardados</h2>
+        <div id="c-favorites-list">
+          <!-- Cargado dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Panel 5: HISTORIAL -->
+      <section id="panel-historial" class="dash-panel">
+        <h2 class="mb-lg">Servicios Completados</h2>
+        <p class="mb-lg" style="font-size: var(--font-size-xs); color: var(--text-secondary);">Califícalos para dejar tu
+          reseña multidimensional.</p>
+        <div id="c-history-list">
+          <!-- Cargado dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Panel 6: MI PERFIL API REAL -->
+      <section id="panel-perfil" class="dash-panel">
+        <h2 class="mb-lg">Mi Perfil y Seguridad (API Real)</h2>
+
+        <div class="grid grid-2 gap-lg text-left mb-xl">
+          <!-- Formulario Actualizar Datos de Perfil (PATCH /users/me) -->
+          <div class="card">
+            <h4 class="mb-md"><i class="ph-user-focus"></i> Datos Personales</h4>
+            <form id="form-update-profile">
+              <div class="input-group mb-sm">
+                <label class="input-label">Nombre Completo</label>
+                <input type="text" id="user-profile-name" class="input-field" required>
+              </div>
+              <div class="input-group mb-sm">
+                <label class="input-label">Teléfono</label>
+                <input type="tel" id="user-profile-phone" class="input-field" placeholder="88888888">
+              </div>
+              <div class="input-group mb-md">
+                <label class="input-label">Correo Electrónico (Solo lectura)</label>
+                <input type="email" id="user-profile-email" class="input-field" readonly style="opacity: 0.7;">
+              </div>
+              <button type="submit" class="btn btn-primary w-full">Guardar Cambios (PATCH /users/me)</button>
+            </form>
+          </div>
+
+          <!-- Formulario Cambiar Contraseña (POST /users/me/password) -->
+          <div class="card">
+            <h4 class="mb-md"><i class="ph-lock-key"></i> Seguridad y Contraseña</h4>
+            <form id="form-change-password">
+              <div class="input-group mb-sm">
+                <label class="input-label">Contraseña Actual</label>
+                <input type="password" id="pass-current" class="input-field" required>
+              </div>
+              <div class="input-group mb-md">
+                <label class="input-label">Nueva Contraseña (mínimo 8)</label>
+                <input type="password" id="pass-new" class="input-field" required>
+              </div>
+              <button type="submit" class="btn btn-secondary w-full">Actualizar Contraseña</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card p-md border-danger mt-lg"
+          style="border: 1px solid rgba(220, 53, 69, 0.3); background-color: rgba(220, 53, 69, 0.04);">
+          <div class="flex justify-between align-center">
+            <div>
+              <h4 style="color: var(--color-danger); margin:0;"><i class="ph-warning"></i> Desactivar Cuenta</h4>
+              <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin: 4px 0 0 0;">Desactiva
+                temporalmente tu cuenta de usuario en MEG (POST /users/me/deactivate).</p>
+            </div>
+            <button type="button" id="btn-deactivate-account" class="btn btn-tertiary btn-sm"
+              style="color: var(--color-danger); border: 1px solid var(--color-danger);">Desactivar Cuenta</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Modal: Dejar Calificación Reseña -->
+  <div id="review-modal" class="modal-overlay">
+    <div class="modal" style="max-width: 560px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Dejar Calificación Multidimensional</h4>
+        <span class="modal-close" onclick="closeModal('review-modal')">&times;</span>
+      </div>
+
+      <p id="review-provider-label"
+        style="font-weight: 700; color: var(--color-accent-blue); margin-bottom: var(--spacing-md);"></p>
+
+      <form id="form-add-review">
+        <div class="grid grid-2 text-left gap-sm">
+          <div class="input-group">
+            <label class="input-label">Puntuación General (0-10)</label>
+            <input type="number" id="review-rating-general" class="input-field" min="1" max="10" step="0.1" value="9.5"
+              required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">1. Puntualidad (0-10)</label>
+            <input type="number" id="r-puntualidad" class="input-field" min="1" max="10" step="0.1" value="9.5"
+              required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">2. Calidad del Servicio (0-10)</label>
+            <input type="number" id="r-calidad" class="input-field" min="1" max="10" step="0.1" value="9.5" required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">3. Comunicación (0-10)</label>
+            <input type="number" id="r-comunicacion" class="input-field" min="1" max="10" step="0.1" value="9.5"
+              required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">4. Cumplimiento (0-10)</label>
+            <input type="number" id="r-cumplimiento" class="input-field" min="1" max="10" step="0.1" value="9.5"
+              required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">5. Trato al Cliente (0-10)</label>
+            <input type="number" id="r-trato" class="input-field" min="1" max="10" step="0.1" value="9.5" required>
+          </div>
+        </div>
+
+        <div class="input-group mt-sm">
+          <label class="input-label">Escribe tu opinión</label>
+          <textarea id="review-comment" class="input-field" placeholder="Comparte los detalles de tu experiencia..."
+            rows="3" style="resize:none;" required></textarea>
+        </div>
+
+        <div class="flex gap-sm mt-lg">
+          <button type="submit" class="btn btn-primary flex-grow">Guardar Opinión</button>
+          <button type="button" onclick="closeModal('review-modal')" class="btn btn-secondary">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/apiClient.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/dashboard-consumidor.js"></script>
+</body>
+
+</html>

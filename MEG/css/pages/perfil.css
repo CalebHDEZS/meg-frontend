@@ -1,0 +1,253 @@
+/* Provider Profile Header */
+.profile-cover-section {
+  padding-top: 72px; /* Altura navbar */
+}
+
+.profile-cover-wrapper {
+  position: relative;
+  height: 240px;
+  background-color: var(--color-accent-blue);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .profile-cover-wrapper {
+    height: 320px;
+  }
+}
+
+.profile-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-header-container {
+  margin-top: -60px;
+  position: relative;
+  z-index: 10;
+  margin-bottom: var(--spacing-xl);
+}
+
+.profile-header-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+  object-fit: cover;
+  background-color: white;
+}
+
+/* Tabs Navigation */
+.profile-tabs-nav {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--spacing-xl);
+  overflow-x: auto;
+  gap: var(--spacing-lg);
+  padding-bottom: 1px;
+}
+
+.profile-tabs-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.profile-tab-btn {
+  padding: 12px 4px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.profile-tab-btn:hover, .profile-tab-btn.active {
+  color: var(--color-accent-blue);
+  border-bottom-color: var(--color-accent-blue);
+}
+
+.profile-tab-panel {
+  display: none;
+}
+
+.profile-tab-panel.active {
+  display: block;
+}
+
+/* Services Card Grid inside profile */
+.profile-service-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  background-color: var(--bg-surface);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .profile-service-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Portfolio Gallery Grid */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.portfolio-item {
+  position: relative;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  aspect-ratio: 4/3;
+  cursor: pointer;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-normal);
+}
+
+.portfolio-item:hover img {
+  transform: scale(1.05);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+  padding: var(--spacing-md);
+  color: white;
+}
+
+/* Reviews List styling */
+.review-row {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Calendar Month Styling */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.calendar-month {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-accent-blue);
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-lg);
+}
+
+.calendar-table th, .calendar-table td {
+  width: 14.28%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: var(--font-size-sm);
+}
+
+.calendar-table th {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.calendar-table td {
+  border-radius: 50%;
+  cursor: default;
+  font-weight: 500;
+}
+
+.calendar-table td.available-day {
+  background-color: var(--color-accent-mint-light);
+  color: var(--color-accent-mint-hover);
+  cursor: pointer;
+  font-weight: 700;
+  transition: var(--transition-fast);
+}
+
+.calendar-table td.available-day:hover {
+  background-color: var(--color-accent-mint);
+  color: white;
+}
+
+.calendar-table td.selected-day {
+  background-color: var(--color-accent-blue) !important;
+  color: white !important;
+  font-weight: 800;
+}
+
+.slots-container {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-md);
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.slot-btn {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color-dark);
+  border-radius: var(--border-radius-sm);
+  padding: 8px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-align: center;
+  transition: var(--transition-fast);
+}
+
+.slot-btn:hover {
+  background-color: var(--color-accent-blue);
+  color: white;
+  border-color: var(--color-accent-blue);
+}
+
+.select-day-prompt {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-align: center;
+  font-style: italic;
+}

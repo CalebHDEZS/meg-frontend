@@ -1,0 +1,252 @@
+/* Auth Container Layout */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  background-color: var(--bg-primary);
+}
+
+.auth-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 480px;
+  padding: var(--spacing-xl);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.auth-tabs-nav {
+  display: flex;
+  background-color: var(--border-color);
+  padding: 4px;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.auth-tab-btn {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  border-radius: 6px;
+  color: var(--text-secondary);
+}
+
+.auth-tab-btn.active {
+  background-color: var(--bg-surface);
+  color: var(--color-accent-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Multistep Registration Steps */
+.step-panel {
+  display: none;
+}
+
+.step-panel.active {
+  display: block;
+}
+
+/* Role Selection Grid */
+.role-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+@media (min-width: 480px) {
+  .role-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.role-card {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.role-card:hover {
+  border-color: var(--color-accent-blue);
+  transform: translateY(-2px);
+}
+
+.role-card.selected {
+  border-color: var(--color-accent-purple);
+  background-color: var(--color-accent-purple-light);
+}
+
+.role-icon {
+  font-size: 32px;
+  color: var(--color-accent-blue);
+}
+
+.role-card.selected .role-icon {
+  color: var(--color-accent-purple);
+}
+
+/* File Upload Layout */
+.upload-zone {
+  border: 2px dashed var(--border-color-dark);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-xl);
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--bg-secondary);
+  transition: var(--transition-fast);
+  margin-bottom: var(--spacing-md);
+}
+
+.upload-zone:hover {
+  border-color: var(--color-accent-blue);
+  background-color: rgba(15, 36, 87, 0.02);
+}
+
+.upload-icon {
+  font-size: 36px;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Verification Review Page */
+.verif-box {
+  text-align: center;
+  padding: var(--spacing-lg) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.verif-spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-accent-purple-light);
+  color: var(--color-accent-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* 7-Step Vendor Registration Wizard */
+.auth-card.auth-card-wide {
+  max-width: 640px;
+}
+
+.wizard-progress-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  padding: 0 4px;
+}
+
+.wizard-progress-bar::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background-color: var(--border-color);
+  z-index: 1;
+}
+
+.wizard-step-node {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-color-dark);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  z-index: 2;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.wizard-step-node.active {
+  border-color: var(--color-accent-blue);
+  background-color: var(--color-accent-blue);
+  color: white;
+  box-shadow: 0 0 0 3px rgba(26, 63, 214, 0.2);
+}
+
+.wizard-step-node.completed {
+  border-color: var(--color-accent-mint);
+  background-color: var(--color-accent-mint);
+  color: white;
+}
+
+.wizard-label {
+  position: absolute;
+  top: 36px;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.wizard-step-node.active .wizard-label {
+  color: var(--color-accent-blue);
+  font-weight: 700;
+}
+
+.wizard-step-node.completed .wizard-label {
+  color: var(--color-accent-mint);
+}
+
+/* Schedule Matrix Styling */
+.schedule-day-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.schedule-day-row:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Image Preview Box */
+.cover-preview-box {
+  width: 100%;
+  height: 160px;
+  border-radius: var(--border-radius-sm);
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+}
+

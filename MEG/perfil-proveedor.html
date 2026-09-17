@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Perfil del Proveedor | MEG</title>
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/perfil.css">
+
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+
+<body>
+  <!-- Pantalla de Carga (Loading Screen) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <div class="meg-logo-animation">
+        <svg id="meg-loading-svg" viewBox="0 0 200 200" width="160" height="160">
+          <defs>
+            <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1A3FD6" />
+              <stop offset="50%" stop-color="#00D2C4" />
+              <stop offset="100%" stop-color="#7B6FE8" />
+            </linearGradient>
+          </defs>
+          <path id="svg-arc" class="svg-arc" d="M 40 100 A 60 60 0 1 1 160 100" fill="none" stroke="url(#arc-gradient)"
+            stroke-width="8" stroke-linecap="round" />
+          <g id="svg-network" class="svg-network">
+            <line id="line-1" x1="70" y1="80" x2="100" y2="70" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-2" x1="100" y1="70" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-3" x1="70" y1="80" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-4" x1="85" y1="110" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-5" x1="115" y1="110" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-6" x1="100" y1="70" x2="100" y2="100" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-7" x1="100" y1="100" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-8" x1="100" y1="100" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <circle id="node-1" cx="70" cy="80" r="6" fill="#1A3FD6" />
+            <circle id="node-2" cx="100" cy="70" r="6" fill="#00D2C4" />
+            <circle id="node-3" cx="130" cy="80" r="6" fill="#7B6FE8" />
+            <circle id="node-4" cx="85" cy="110" r="6" fill="#7B6FE8" />
+            <circle id="node-5" cx="100" cy="100" r="6" fill="#1A3FD6" />
+            <circle id="node-6" cx="115" cy="110" r="6" fill="#00D2C4" />
+          </g>
+          <g id="svg-particles" class="svg-particles">
+            <circle cx="145" cy="45" r="3.5" fill="#00D2C4" opacity="0" class="particle-dot" />
+            <circle cx="155" cy="55" r="4.5" fill="#7B6FE8" opacity="0" class="particle-dot" />
+            <circle cx="160" cy="40" r="3" fill="#1A3FD6" opacity="0" class="particle-dot" />
+          </g>
+        </svg>
+        <h1 class="meg-loading-text">MEG</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled">
+    <div class="container">
+      <div class="logo-container" onclick="window.location.href='index.html'">
+        <div class="logo-icon"><img src="logo.png" alt=""></div>
+        <span>MEG</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="busqueda.html" class="nav-link">Explorar servicios</a>
+        <a href="index.html#seccion-proveedores" class="nav-link">Para proveedores</a>
+        <a href="planes.html" class="nav-link">Planes y Precios</a>
+      </div>
+
+      <div class="nav-ctas">
+        <!-- Rellenado por router.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cover and Profile Header Section -->
+  <header class="profile-cover-section">
+    <div class="profile-cover-wrapper">
+      <img id="profile-banner" src="" alt="Banner Portada" class="profile-cover-img">
+    </div>
+
+    <div class="container profile-header-container">
+      <div class="profile-header-card flex flex-col md-flex-row justify-between align-center gap-lg">
+        <div class="flex flex-col md-flex-row align-center gap-lg text-center md-text-left" style="width: 100%;">
+          <div class="profile-avatar-wrapper">
+            <img id="profile-avatar" src="" alt="Avatar" class="profile-avatar-img">
+          </div>
+          <div class="flex-grow">
+            <div id="profile-badges-container" class="flex gap-xs mb-xs"
+              style="flex-wrap: wrap; justify-content: center; justify-items: start;">
+              <!-- Badges de verificación dinámicos -->
+            </div>
+            <h2 id="profile-name" style="margin: 0; font-size: var(--font-size-xl);"></h2>
+            <span id="profile-owner"
+              style="font-size: var(--font-size-sm); color: var(--text-secondary); font-weight: 500; display: block; margin-top: 2px;"></span>
+            <span id="profile-subcat"
+              style="font-size: var(--font-size-xs); color: var(--text-secondary); font-weight: 600;"></span>
+            <span id="profile-location"
+              style="display: block; font-size: var(--font-size-xs); color: var(--text-muted); margin-top: 4px;"></span>
+          </div>
+        </div>
+
+        <!-- Repositorio Global Score -->
+        <div class="flex align-center gap-md"
+          style="min-width: 150px; background-color: var(--bg-primary); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius-md); border: 1px solid var(--border-color);">
+          <span id="profile-rep-score" class="reputation-composite-badge"
+            style="width: 52px; height: 52px; font-size: var(--font-size-xl);"></span>
+          <div>
+            <strong style="font-size: var(--font-size-sm);">Reputación</strong>
+            <span id="profile-rep-stars-count"
+              style="display: block; font-size: 11px; color: var(--text-secondary);"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content split body -->
+  <main class="mb-xxl">
+    <div class="container layout-split">
+
+      <!-- Primary Profile Tabs Content (70%) -->
+      <section>
+        <nav class="profile-tabs-nav">
+          <button class="profile-tab-btn active" data-profile-tab="servicios">Servicios</button>
+          <button class="profile-tab-btn" data-profile-tab="portafolio">Portafolio</button>
+          <button class="profile-tab-btn" data-profile-tab="reseñas">Calificaciones</button>
+          <button class="profile-tab-btn" data-profile-tab="sobre-mi">Sobre mí</button>
+          <button class="profile-tab-btn" data-profile-tab="disponibilidad">Agendar Cita</button>
+        </nav>
+
+        <!-- Tab 1: Servicios -->
+        <div id="profile-tab-servicios" class="profile-tab-panel active">
+          <!-- Cargado dinámicamente -->
+        </div>
+
+        <!-- Tab 2: Portafolio -->
+        <div id="profile-tab-portafolio" class="profile-tab-panel">
+          <!-- Cargado dinámicamente -->
+        </div>
+
+        <!-- Tab 3: Reseñas / Calificaciones -->
+        <div id="profile-tab-reseñas" class="profile-tab-panel">
+          <div class="card mb-lg">
+            <h4>Puntuación Compuesta Multidimensional</h4>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+              Desglose del promedio de opiniones de clientes en Costa Rica.</p>
+            <div id="profile-reviews-dimensions-bars" class="reputation-dimensions">
+              <!-- Barras pintadas dinámicamente por js/components.js -->
+            </div>
+          </div>
+
+          <h4>Comentarios Recientes</h4>
+          <div id="profile-reviews-list" style="margin-top: var(--spacing-md);">
+            <!-- Opiniones listadas dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Tab 4: Sobre Mí -->
+        <div id="profile-tab-sobre-mi" class="profile-tab-panel">
+          <!-- Cargado dinámicamente -->
+        </div>
+
+        <!-- Tab 5: Disponibilidad (Calendario) -->
+        <div id="profile-tab-disponibilidad" class="profile-tab-panel">
+          <div class="card">
+            <h4>Disponibilidad para Reservar</h4>
+            <p style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+              Visualiza los días disponibles en verde y reserva tu espacio directo.</p>
+            <div id="profile-calendar-container">
+              <!-- Pintado por citas.js -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar Right Sticky (30%) -->
+      <aside class="sidebar-sticky">
+        <div class="card flex flex-col gap-lg" style="margin-bottom: var(--spacing-lg);">
+          <div>
+            <span
+              style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em; display: block;">Precio
+              base sugerido</span>
+            <strong id="widget-price" style="font-size: var(--font-size-xl); color: var(--color-accent-blue);"></strong>
+          </div>
+
+          <div class="flex flex-col gap-sm"
+            style="border-top: 1px solid var(--border-color); padding-top: var(--spacing-md);">
+            <div class="flex justify-between" style="font-size: var(--font-size-sm);">
+              <span style="color: var(--text-secondary);">Tiempo de respuesta promedio:</span>
+              <strong id="widget-response-time" style="color: var(--color-accent-mint);"></strong>
+            </div>
+            <div class="flex justify-between" style="font-size: var(--font-size-sm);">
+              <span style="color: var(--text-secondary);">Tasa de aceptación de trabajos:</span>
+              <strong id="widget-acceptance"></strong>
+            </div>
+          </div>
+
+          <form id="profile-quick-contact" class="flex flex-col gap-sm"
+            style="border-top: 1px solid var(--border-color); padding-top: var(--spacing-md);">
+            <h5 style="margin: 0; font-size: var(--font-size-sm);">Mensaje rápido al proveedor</h5>
+            <input type="text" id="contact-client-name" class="input-field" placeholder="Tu nombre" required>
+            <textarea id="contact-job-desc" class="input-field" placeholder="Describe brevemente lo que necesitas..."
+              rows="3" required style="resize: none;"></textarea>
+            <button type="submit" class="btn btn-primary w-full">Enviar solicitud directa</button>
+          </form>
+
+          <button id="btn-share-profile" class="btn btn-secondary w-full"><i class="ph-share-network"></i> Compartir
+            perfil</button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Modal 1: Cotización de Servicio -->
+  <div id="quote-modal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title">Solicitar Cotización</h4>
+        <span class="modal-close" onclick="closeModal('quote-modal')">&times;</span>
+      </div>
+      <p id="quote-service-label"
+        style="font-size: var(--font-size-sm); font-weight: 600; color: var(--color-accent-blue); margin-bottom: var(--spacing-md);">
+      </p>
+
+      <div class="input-group">
+        <label class="input-label">Describe detalladamente lo que necesitas</label>
+        <textarea id="quote-details-desc" class="input-field"
+          placeholder="Indica medidas, materiales preferidos o condiciones del trabajo..." rows="4"
+          style="resize:none;"></textarea>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Presupuesto estimado en Colones (Opcional)</label>
+        <input type="number" id="quote-budget-offer" class="input-field" placeholder="Ej: 30000">
+      </div>
+
+      <div class="flex gap-sm mt-lg">
+        <button onclick="submitQuoteRequest()" class="btn btn-primary flex-grow">Enviar solicitud</button>
+        <button onclick="closeModal('quote-modal')" class="btn btn-secondary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Agendamiento de Cita -->
+  <div id="booking-modal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmar Cita</h4>
+        <span class="modal-close" onclick="closeModal('booking-modal')">&times;</span>
+      </div>
+
+      <p id="modal-confirm-text" class="mb-md" style="font-size: var(--font-size-sm); line-height: 1.5;"></p>
+
+      <div class="input-group">
+        <label class="input-label">Notas o requerimientos especiales (Opcional)</label>
+        <textarea id="booking-notes" class="input-field"
+          placeholder="Indica si tienes alergias, especificaciones de parqueo o condiciones de salud..." rows="3"
+          style="resize:none;"></textarea>
+      </div>
+
+      <div class="flex gap-sm mt-lg">
+        <button onclick="window.gemCalendarInstance.confirmBooking()" class="btn btn-primary flex-grow">Confirmar
+          Reservación</button>
+        <button onclick="closeModal('booking-modal')" class="btn btn-secondary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 MEG CR. Todos los derechos reservados.</span>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="ph-facebook-logo"></i></a>
+          <a href="#" class="social-link"><i class="ph-instagram-logo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/apiClient.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/citas.js"></script>
+  <script src="js/perfil.js"></script>
+</body>
+
+</html>

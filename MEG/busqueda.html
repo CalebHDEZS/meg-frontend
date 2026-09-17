@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Buscar Especialistas y micro y pequeñas empresas | MEG</title>
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/busqueda.css">
+
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+
+<body>
+  <!-- Pantalla de Carga (Loading Screen) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <div class="meg-logo-animation">
+        <svg id="meg-loading-svg" viewBox="0 0 200 200" width="160" height="160">
+          <defs>
+            <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1A3FD6" />
+              <stop offset="50%" stop-color="#00D2C4" />
+              <stop offset="100%" stop-color="#7B6FE8" />
+            </linearGradient>
+          </defs>
+          <path id="svg-arc" class="svg-arc" d="M 40 100 A 60 60 0 1 1 160 100" fill="none" stroke="url(#arc-gradient)"
+            stroke-width="8" stroke-linecap="round" />
+          <g id="svg-network" class="svg-network">
+            <line id="line-1" x1="70" y1="80" x2="100" y2="70" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-2" x1="100" y1="70" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-3" x1="70" y1="80" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-4" x1="85" y1="110" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-5" x1="115" y1="110" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-6" x1="100" y1="70" x2="100" y2="100" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-7" x1="100" y1="100" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-8" x1="100" y1="100" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <circle id="node-1" cx="70" cy="80" r="6" fill="#1A3FD6" />
+            <circle id="node-2" cx="100" cy="70" r="6" fill="#00D2C4" />
+            <circle id="node-3" cx="130" cy="80" r="6" fill="#7B6FE8" />
+            <circle id="node-4" cx="85" cy="110" r="6" fill="#7B6FE8" />
+            <circle id="node-5" cx="100" cy="100" r="6" fill="#1A3FD6" />
+            <circle id="node-6" cx="115" cy="110" r="6" fill="#00D2C4" />
+          </g>
+          <g id="svg-particles" class="svg-particles">
+            <circle cx="145" cy="45" r="3.5" fill="#00D2C4" opacity="0" class="particle-dot" />
+            <circle cx="155" cy="55" r="4.5" fill="#7B6FE8" opacity="0" class="particle-dot" />
+            <circle cx="160" cy="40" r="3" fill="#1A3FD6" opacity="0" class="particle-dot" />
+          </g>
+        </svg>
+        <h1 class="meg-loading-text">MEG</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled">
+    <div class="container">
+      <div class="logo-container" onclick="window.location.href='index.html'">
+
+        <span>MEG</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="busqueda.html" class="nav-link">Explorar servicios</a>
+        <a href="index.html#seccion-proveedores" class="nav-link">Para proveedores</a>
+        <a href="planes.html" class="nav-link">Planes y Precios</a>
+      </div>
+
+      <div class="nav-ctas">
+        <!-- Rellenado por router.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Header -->
+  <header class="search-header">
+    <div class="container">
+      <div class="search-bar-inline">
+        <i class="ph-magnifying-glass" style="font-size: var(--font-size-md); color: var(--text-secondary);"></i>
+        <input type="text" id="search-input"
+          placeholder="Buscar por negocio, servicio o palabras clave (ej: plomero, maquillaje)...">
+        <button onclick="renderSearchResults()" class="btn btn-primary btn-sm"
+          style="border-radius: var(--border-radius-sm); margin-right: 2px;">Buscar</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Split Area -->
+  <main class="py-xl">
+    <div class="container layout-split">
+
+      <!-- Filters Sidebar (30%) -->
+      <aside class="filter-sidebar reveal-on-scroll">
+        <div>
+          <h4 class="filter-group-title">Categoría</h4>
+          <select id="filter-category" class="input-field select-field">
+            <option value="">Todas las categorías</option>
+            <option value="hogar">Servicios del Hogar</option>
+            <option value="tecnologia">Tecnología y Diseño</option>
+            <option value="educacion">Educación y Tutorías</option>
+            <option value="gastronomia">Gastronomía y Eventos</option>
+            <option value="belleza">Belleza y Estética</option>
+          </select>
+        </div>
+
+        <div>
+          <h4 class="filter-group-title">Ubicación (Zona Central)</h4>
+          <select id="filter-location" class="input-field select-field">
+            <option value="">Todas las ubicaciones</option>
+            <option value="escazu">Escazú (San José)</option>
+            <option value="santa-ana">Santa Ana (San José)</option>
+            <option value="san-pedro">San Pedro (San José)</option>
+            <option value="belen">Belén (Heredia)</option>
+            <option value="san-joaquin">San Joaquín (Heredia)</option>
+            <option value="coyol">El Coyol (Alajuela)</option>
+            <option value="tres-rios">Tres Ríos (Cartago)</option>
+          </select>
+        </div>
+
+        <div>
+          <div class="flex justify-between align-center mb-sm">
+            <h4 class="filter-group-title" style="margin: 0;">Presupuesto Máximo</h4>
+            <span style="font-size: var(--font-size-xs); font-weight: 700; color: var(--color-accent-blue);">¢<span
+                id="price-val-display">50,000</span></span>
+          </div>
+          <input type="range" id="filter-price" class="range-slider" min="5000" max="100000" step="5000" value="50000">
+        </div>
+
+        <div>
+          <h4 class="filter-group-title">Nivel de Verificación</h4>
+          <div class="flex flex-col gap-sm">
+            <label class="checkbox-container">
+              <input type="checkbox" value="identity" class="filter-verify" style="display:none;">
+              <span class="checkbox-custom"><i class="ph-check"></i></span>
+              Identidad Verificada
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="company" class="filter-verify" style="display:none;">
+              <span class="checkbox-custom"><i class="ph-check"></i></span>
+              Empresa Registrada
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="top" class="filter-verify" style="display:none;">
+              <span class="checkbox-custom"><i class="ph-check"></i></span>
+              Top Proveedor
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="filter-group-title">Reputación Mínima</h4>
+          <select id="filter-rating" class="input-field select-field">
+            <option value="0">Cualquier calificación</option>
+            <option value="8">Excelente (8.0+)</option>
+            <option value="9">Sobresaliente (9.0+)</option>
+          </select>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-color); padding-top: var(--spacing-md);">
+          <label class="toggle-container">
+            <input type="checkbox" id="filter-avail" style="display:none;">
+            <div class="toggle-switch"></div>
+            <span style="font-size: var(--font-size-sm); font-weight: 600; color: var(--text-secondary);">Disponible
+              para citas</span>
+          </label>
+        </div>
+
+        <div class="flex gap-sm mt-md">
+          <button id="btn-apply-filters" class="btn btn-primary flex-grow">Aplicar</button>
+          <button id="btn-clear-filters" class="btn btn-secondary"><i class="ph-trash"></i></button>
+        </div>
+      </aside>
+
+      <!-- Results Grid (70%) -->
+      <section>
+
+        <!-- AI Recommendations Header Widget -->
+        <div id="ia-recommendation-banner" class="ia-banner-box" style="display: none;">
+          <div class="ia-banner-header">
+            <div
+              style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-blue) 100%); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px;">
+              <i class="ph-sparkle"></i>
+            </div>
+            <h4 class="ia-banner-title">MEG IA ha encontrado opciones ideales para ti</h4>
+          </div>
+          <div id="ia-recommendations-list" class="ia-rec-grid">
+            <!-- Cargado por js/busqueda.js -->
+          </div>
+        </div>
+
+        <!-- Toolbar tools -->
+        <div class="search-toolbar">
+          <span id="results-count-text"
+            style="font-size: var(--font-size-sm); font-weight: 600; color: var(--text-secondary);">Cargando
+            proveedores...</span>
+
+          <div class="flex align-center gap-md">
+            <div class="flex align-center gap-sm">
+              <span style="font-size: var(--font-size-xs); color: var(--text-secondary); font-weight: 500;">Ordenar
+                por:</span>
+              <select id="sort-by" class="input-field select-field"
+                style="padding: 6px 30px 6px 12px; width: 160px; font-size: var(--font-size-xs);">
+                <option value="relevance">Relevancia</option>
+                <option value="rating">Mejor calificación</option>
+                <option value="price_asc">Precio: menor a mayor</option>
+                <option value="price_desc">Precio: mayor a menor</option>
+                <option value="experience">Años de experiencia</option>
+              </select>
+            </div>
+
+            <div class="view-toggle-btns">
+              <button id="btn-view-grid" class="view-btn active"><i class="ph-grid-four"></i></button>
+              <button id="btn-view-list" class="view-btn"><i class="ph-list"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid of results -->
+        <div id="results-grid" class="grid grid-3 reveal-on-scroll">
+          <!-- Renderizado dinámicamente -->
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-container" onclick="window.location.href='index.html'"
+            style="margin-bottom: var(--spacing-sm); padding: 0;">
+            <div class="logo-icon"><img src="logo.png" alt="MEG Logo" style="height: 32px;"></div>
+            <span style="color: white; font-weight: 800; font-size: var(--font-size-lg);">MEG</span>
+          </div>
+          <p class="footer-description">El ecosistema empresarial digital líder en Costa Rica que conecta talento local
+            verificado con consumidores de la Zona Central.</p>
+        </div>
+
+
+        <div class="footer-column">
+          <h4>Plataforma</h4>
+          <div class="footer-links">
+            <a href="busqueda.html" class="footer-link">Explorar Servicios</a>
+            <a href="planes.html" class="footer-link">Planes y Precios</a>
+            <a href="auth.html?tab=login" class="footer-link">Iniciar Sesión</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Proveedores</h4>
+          <div class="footer-links">
+            <a href="auth.html?tab=register&role=proveedor" class="footer-link">Regístrate como Proveedor</a>
+            <a href="planes.html" class="footer-link">Herramientas IA</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Términos de Servicio</a>
+            <a href="#" class="footer-link">Política de Privacidad</a>
+            <a href="#" class="footer-link">Garantía de Protección</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; Elias el mas duro en todo lo que hace.inc</span>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="ph-facebook-logo"></i></a>
+          <a href="#" class="social-link"><i class="ph-instagram-logo"></i></a>
+          <a href="#" class="social-link"><i class="ph-linkedin-logo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/busqueda.js"></script>
+</body>
+
+</html>

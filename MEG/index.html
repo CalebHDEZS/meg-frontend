@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>MEG | Encuentra servicios de confianza en Costa Rica</title>
+  <meta name="description"
+    content="Conecta con proveedores verificados y haz crecer tu negocio en la Zona Central de Costa Rica.">
+
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/landing.css">
+
+
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+
+<body>
+
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <div class="meg-logo-animation">
+        <svg id="meg-loading-svg" viewBox="0 0 200 200" width="160" height="160">
+          <defs>
+            <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1A3FD6" />
+              <stop offset="50%" stop-color="#00D2C4" />
+              <stop offset="100%" stop-color="#7B6FE8" />
+            </linearGradient>
+          </defs>
+          <path id="svg-arc" class="svg-arc" d="M 40 100 A 60 60 0 1 1 160 100" fill="none" stroke="url(#arc-gradient)"
+            stroke-width="8" stroke-linecap="round" />
+          <g id="svg-network" class="svg-network">
+            <line id="line-1" x1="70" y1="80" x2="100" y2="70" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-2" x1="100" y1="70" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-3" x1="70" y1="80" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-4" x1="85" y1="110" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-5" x1="115" y1="110" x2="130" y2="80" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-6" x1="100" y1="70" x2="100" y2="100" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-7" x1="100" y1="100" x2="85" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <line id="line-8" x1="100" y1="100" x2="115" y2="110" stroke="#8F99A9" stroke-width="2" />
+            <circle id="node-1" cx="70" cy="80" r="6" fill="#1A3FD6" />
+            <circle id="node-2" cx="100" cy="70" r="6" fill="#00D2C4" />
+            <circle id="node-3" cx="130" cy="80" r="6" fill="#7B6FE8" />
+            <circle id="node-4" cx="85" cy="110" r="6" fill="#7B6FE8" />
+            <circle id="node-5" cx="100" cy="100" r="6" fill="#1A3FD6" />
+            <circle id="node-6" cx="115" cy="110" r="6" fill="#00D2C4" />
+          </g>
+          <g id="svg-particles" class="svg-particles">
+            <circle cx="145" cy="45" r="3.5" fill="#00D2C4" opacity="0" class="particle-dot" />
+            <circle cx="155" cy="55" r="4.5" fill="#7B6FE8" opacity="0" class="particle-dot" />
+            <circle cx="160" cy="40" r="3" fill="#1A3FD6" opacity="0" class="particle-dot" />
+          </g>
+        </svg>
+        <h1 class="meg-loading-text">MEG</h1>
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo-container" onclick="window.location.href='index.html'">
+        <div class="logo-icon"><img src="logo.png" alt=""></div>
+        <span>MEG</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="busqueda.html" class="nav-link">Explorar servicios</a>
+        <a href="index.html#seccion-proveedores" class="nav-link">Para proveedores</a>
+        <a href="planes.html" class="nav-link">Planes y Precios</a>
+      </div>
+
+      <div class="nav-ctas">
+
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="hero-section" id="seccion-buscador">
+    <div class="container text-center">
+      <h1 class="hero-title">Encuentra servicios de confianza. Haz crecer tu negocio.</h1>
+      <p class="hero-subtitle">MEG conecta consumidores de la Zona Central de Costa Rica con los mejores profesionales,
+        emprendedores y micro y pequeñas empresas locales con soporte de Inteligencia Artificial.</p>
+
+      <!-- Panel de Búsqueda Principal (Primer elemento visible) -->
+      <div class="search-bar-container reveal-on-scroll reveal-delay-1"
+        style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+        <div class="search-select-wrapper">
+          <select id="hero-category-select" class="search-select">
+            <option value="">Todas las Categorías</option>
+            <option value="hogar">Servicios del Hogar</option>
+            <option value="tecnologia">Tecnología y Diseño</option>
+            <option value="educacion">Educación y Tutorías</option>
+            <option value="gastronomia">Gastronomía y Eventos</option>
+            <option value="belleza">Belleza y Estética</option>
+          </select>
+        </div>
+        <div class="search-input-wrapper">
+          <input type="text" id="hero-search-input" class="search-input"
+            placeholder="Ej: plomero, programador, maquillaje...">
+        </div>
+        <button id="hero-search-btn" class="btn btn-primary search-btn">
+          <i class="ph-magnifying-glass"></i> Buscar
+        </button>
+      </div>
+
+      <!-- Pop Tags populares -->
+      <div class="flex justify-center gap-sm mb-lg reveal-on-scroll reveal-delay-2" style="flex-wrap: wrap;">
+        <span style="font-size: var(--font-size-xs); color: var(--text-secondary); align-self: center;">Popular:</span>
+        <button class="chip chip-search" data-category="hogar">Reparaciones hogareñas</button>
+        <button class="chip chip-search" data-category="belleza">Maquillaje profesional</button>
+        <button class="chip chip-search" data-category="tecnologia">Páginas web</button>
+      </div>
+
+      <div class="social-proof">
+        <span>4,200+ proveedores verificados</span>
+        <span>•</span>
+        <span>18 subcategorías</span>
+        <span>•</span>
+        <span>Zona Central CR</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. ¿Cómo funciona? -->
+  <section id="seccion-como-funciona" class="py-xxl" style="background-color: var(--bg-surface);">
+    <div class="container text-center">
+      <h2 class="mb-sm reveal-on-scroll">Cómo funciona MEG</h2>
+      <p class="mb-lg reveal-on-scroll"
+        style="color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;">Un
+        ecosistema digital completo diseñado para facilitar la contratación segura de servicios.</p>
+
+      <div class="how-it-works-tabs reveal-on-scroll reveal-delay-1">
+        <button id="how-tab-consumidor" class="how-tab-btn active">Soy consumidor</button>
+        <button id="how-tab-proveedor" class="how-tab-btn">Soy proveedor</button>
+      </div>
+
+      <div id="how-cards-container" class="grid grid-3 text-left reveal-on-scroll reveal-delay-2">
+        <!-- Cargado por js/landing.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Confianza y Seguridad -->
+  <section class="py-xxl">
+    <div class="container text-center">
+      <h2 class="mb-sm reveal-on-scroll">Seguridad y Confianza en MEG</h2>
+      <p class="mb-xl reveal-on-scroll"
+        style="color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;">
+        Nuestra prioridad es crear un ambiente confiable para consumidores y profesionales.</p>
+
+      <div class="grid grid-3 text-left">
+        <div class="card flex flex-col gap-sm reveal-on-scroll reveal-delay-1">
+          <span class="badge badge-verified-identity" style="align-self: flex-start; padding: 6px 12px;"><i
+              class="ph-shield-check"></i> Identidad Verificada</span>
+          <h4>Validación Rigurosa</h4>
+          <p style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">Revisamos los
+            documentos oficiales de identidad y fotografías biométricas de cada proveedor registrado antes de otorgar el
+            escudo azul.</p>
+        </div>
+
+        <div class="card flex flex-col gap-sm reveal-on-scroll reveal-delay-2">
+          <span class="badge badge-verified-company" style="align-self: flex-start; padding: 6px 12px;"><i
+              class="ph-buildings"></i> Empresa Registrada</span>
+          <h4>Micro y Pequeñas Empresas de Confianza</h4>
+          <p style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">Verificamos la
+            personería jurídica e inscripción tributaria nacional de las empresas registradas para garantizar la
+            formalidad legal.</p>
+        </div>
+
+        <div class="card flex flex-col gap-sm reveal-on-scroll reveal-delay-3">
+          <span class="badge badge-top-provider" style="align-self: flex-start; padding: 6px 12px;"><i
+              class="ph-star"></i> Top Proveedor</span>
+          <h4>Reputación Garantizada</h4>
+          <p style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">Distintivo
+            exclusivo para proveedores con excelente reputación multidimensional, tiempos de respuesta ultra veloces y
+            alta tasa de trabajos finalizados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Categorías Populares -->
+  <section id="seccion-categorias" class="py-xxl" style="background-color: var(--bg-surface);">
+    <div class="container text-center">
+      <h2 class="mb-sm reveal-on-scroll">Explora por Categorías Populares</h2>
+      <p class="mb-xl reveal-on-scroll"
+        style="color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;">
+        Encuentra de inmediato los especialistas más solicitados en la Zona Central de Costa Rica.
+      </p>
+
+      <div class="grid grid-3 text-left">
+        <div class="category-card cat-hogar reveal-on-scroll reveal-delay-1"
+          onclick="window.location.href='busqueda.html?category=hogar'">
+          <div class="category-icon-wrapper"><i class="ph-house-line"></i></div>
+          <span class="category-title">Servicios del Hogar</span>
+          <span class="category-count">142 especialistas</span>
+        </div>
+
+        <div class="category-card cat-tecnologia reveal-on-scroll reveal-delay-2"
+          onclick="window.location.href='busqueda.html?category=tecnologia'">
+          <div class="category-icon-wrapper"><i class="ph-code"></i></div>
+          <span class="category-title">Tecnología y Diseño</span>
+          <span class="category-count">98 especialistas</span>
+        </div>
+
+        <div class="category-card cat-educacion reveal-on-scroll reveal-delay-3"
+          onclick="window.location.href='busqueda.html?category=educacion'">
+          <div class="category-icon-wrapper"><i class="ph-book-open"></i></div>
+          <span class="category-title">Educación y Tutorías</span>
+          <span class="category-count">76 especialistas</span>
+        </div>
+
+        <div class="category-card cat-gastronomia reveal-on-scroll reveal-delay-4"
+          onclick="window.location.href='busqueda.html?category=gastronomia'">
+          <div class="category-icon-wrapper"><i class="ph-fork-knife"></i></div>
+          <span class="category-title">Gastronomía y Eventos</span>
+          <span class="category-count">64 especialistas</span>
+        </div>
+
+        <div class="category-card cat-belleza reveal-on-scroll reveal-delay-5"
+          onclick="window.location.href='busqueda.html?category=belleza'">
+          <div class="category-icon-wrapper"><i class="ph-sparkles-fill"></i></div>
+          <span class="category-title">Belleza y Estética</span>
+          <span class="category-count">110 especialistas</span>
+        </div>
+
+        <div class="category-card cat-servicios reveal-on-scroll reveal-delay-6"
+          onclick="window.location.href='busqueda.html?category=servicios'">
+          <div class="category-icon-wrapper"><i class="ph-briefcase"></i></div>
+          <span class="category-title">Servicios Profesionales</span>
+          <span class="category-count">120 especialistas</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- 4. Planes detallados (B2B Proveedores) -->
+  <section id="seccion-proveedores" class="py-xxl"
+    style="background: linear-gradient(135deg, var(--color-accent-blue) 0%, #08122B 100%); color: white;">
+    <div class="container flex flex-col align-center text-center">
+      <span class="badge badge-top-provider mb-sm"
+        style="background-color: rgba(255, 255, 255, 0.1); color: #FFFFFF; border: none;">Especial para micro y pequeñas
+        empresas y Emprendedores</span>
+      <h2 style="color: white;" class="mb-sm">Tu negocio, donde los clientes te buscan</h2>
+      <p class="mb-xl" style="color: var(--text-muted); max-width: 650px; margin-left: auto; margin-right: auto;">Crea
+        tu perfil empresarial, muestra tus trabajos, cotiza formalmente con ayuda de nuestra IA y administra tu agenda
+        en un solo lugar.</p>
+
+      <div class="flex gap-md" style="flex-wrap: wrap; justify-content: center;">
+        <a href="auth.html?tab=register&role=proveedor" class="btn btn-ia btn-lg">Publica tus servicios gratis</a>
+        <a href="planes.html" class="btn btn-secondary btn-lg"
+          style="color: white; border-color: rgba(255, 255, 255, 0.3);">Ver planes detallados</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Proveedores Destacados -->
+  <section class="py-xxl" style="background-color: var(--bg-surface); overflow: hidden;">
+    <div class="container">
+      <h2 class="mb-sm reveal-on-scroll">Proveedores destacados</h2>
+      <p class="mb-xl reveal-on-scroll" style="color: var(--text-secondary);">Profesionales recomendados y de alta
+        calificación en la
+        Zona Central.</p>
+
+      <div id="featured-carousel-wrapper" class="carousel-wrapper reveal-on-scroll reveal-delay-1">
+        <!-- Renderizado dinámico por landing.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Testimonios y Comentarios -->
+  <section class="py-xxl">
+    <div class="container">
+      <h2 class="text-center mb-xl reveal-on-scroll">Historias de Éxito en Costa Rica</h2>
+      <div class="grid grid-3 text-left">
+        <div class="card flex flex-col gap-md reveal-on-scroll reveal-delay-1">
+          <p
+            style="font-style: italic; font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">
+            "Gracias a MEG logré digitalizar la agenda de citas de mi estudio de estética. Las sugerencias de IA para
+            publicar mis servicios incrementaron un 40% mis cotizaciones aceptadas en Heredia."</p>
+          <div class="flex align-center gap-md">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=80&h=80"
+              alt="Karla Solano" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+            <div>
+              <strong style="font-size: var(--font-size-sm); display: block;">Karla Solano</strong>
+              <span style="font-size: 10px; color: var(--text-muted);">Karla Solano Studio (Heredia)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col gap-md reveal-on-scroll reveal-delay-2">
+          <p
+            style="font-style: italic; font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">
+            "Para mí, como consumidor, encontrar plomeros de confianza en Escazú era un dolor de cabeza. En MEG pude ver
+            la puntuación de puntualidad de Carlos antes de contactarlo. Excelente servicio."</p>
+          <div class="flex align-center gap-md">
+            <div
+              style="width: 44px; height: 44px; border-radius: 50%; background-color: var(--color-accent-purple); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+              R</div>
+            <div>
+              <strong style="font-size: var(--font-size-sm); display: block;">Roberto Jiménez</strong>
+              <span style="font-size: 10px; color: var(--text-muted);">Consumidor (Escazú)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col gap-md reveal-on-scroll reveal-delay-3">
+          <p
+            style="font-style: italic; font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">
+            "Registramos TechStudio como empresa legal y de inmediato empezamos a captar leads de startups. El sistema
+            de reputación multidimensional nos permite destacar por nuestra puntualidad y calidad."</p>
+          <div class="flex align-center gap-md">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=80&h=80"
+              alt="Daniel Vargas" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+            <div>
+              <strong style="font-size: var(--font-size-sm); display: block;">Daniel Vargas</strong>
+              <span style="font-size: 10px; color: var(--text-muted);">Fundador de TechStudio CR (San José)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-description">El ecosistema empresarial digital líder en Costa Rica que conecta talento local
+            verificado con consumidores de la Zona Central.</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Plataforma</h4>
+          <div class="footer-links">
+            <a href="busqueda.html" class="footer-link">Explorar Servicios</a>
+            <a href="planes.html" class="footer-link">Planes y Precios</a>
+            <a href="auth.html?tab=login" class="footer-link">Iniciar Sesión</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Proveedores</h4>
+          <div class="footer-links">
+            <a href="auth.html?tab=register&role=proveedor" class="footer-link">Regístrate como Proveedor</a>
+            <a href="planes.html" class="footer-link">Herramientas IA</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Términos de Servicio</a>
+            <a href="#" class="footer-link">Política de Privacidad</a>
+            <a href="#" class="footer-link">Garantía de Protección</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; Elias el mas duro en todo lo que hace.inc</span>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="ph-facebook-logo"></i></a>
+          <a href="#" class="social-link"><i class="ph-instagram-logo"></i></a>
+          <a href="#" class="social-link"><i class="ph-linkedin-logo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/apiClient.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/landing.js"></script>
+</body>
+
+</html>

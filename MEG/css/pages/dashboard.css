@@ -1,0 +1,287 @@
+/* Dashboard Shell Layout */
+.dash-shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.dash-sidebar {
+  width: 260px;
+  background-color: var(--color-accent-blue);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg) 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.dash-content {
+  margin-left: 260px;
+  flex-grow: 1;
+  padding: var(--spacing-xl);
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .dash-shell {
+    flex-direction: column;
+  }
+  .dash-sidebar {
+    width: 100%;
+    position: relative;
+    padding: var(--spacing-md);
+  }
+  .dash-content {
+    margin-left: 0;
+    padding: var(--spacing-md);
+  }
+}
+
+.dash-logo {
+  padding: 0 var(--spacing-lg);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: var(--spacing-xl);
+}
+
+.dash-user-card {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.dash-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.dash-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.dash-nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 10px var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  border-left: 3px solid transparent;
+  transition: var(--transition-fast);
+}
+
+.dash-nav-link:hover, .dash-nav-link.active {
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--color-accent-purple);
+}
+
+.dash-panel {
+  display: none;
+}
+
+.dash-panel.active-panel {
+  display: block;
+}
+
+/* Alert profile progress */
+.progress-alert-bar {
+  background-color: var(--color-warning-light);
+  border: 1px solid rgba(252, 196, 25, 0.3);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: var(--spacing-xs);
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--color-warning);
+  border-radius: 4px;
+}
+
+/* Service & request items */
+.service-list-card, .request-list-card {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  transition: var(--transition-fast);
+}
+
+.service-list-card:hover, .request-list-card:hover {
+  border-color: var(--border-color-dark);
+}
+
+/* Chat Simulator panel styling */
+.chat-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: calc(100vh - 180px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-surface);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .chat-wrapper {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+.chat-sidebar {
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+}
+
+.chat-list-item {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  background-color: var(--bg-surface);
+  transition: var(--transition-fast);
+}
+
+.chat-list-item:hover, .chat-list-item.active {
+  background-color: var(--color-accent-purple-light);
+}
+
+.chat-list-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-list-preview {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 2px 0 0 0;
+}
+
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+}
+
+.chat-active-header {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background-color: var(--bg-primary);
+}
+
+.chat-bubble-container {
+  display: flex;
+  width: 100%;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.chat-bubble.received {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-top-left-radius: 0;
+}
+
+.chat-bubble.sent {
+  background-color: var(--color-accent-blue);
+  color: #FFFFFF;
+  border-top-right-radius: 0;
+}
+
+.chat-input-area {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+/* AI tools output panels */
+.ia-output-container {
+  margin-top: var(--spacing-lg);
+  background-color: var(--bg-primary);
+  border: 1px solid rgba(123, 111, 232, 0.25);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+}
+
+.ia-loading-overlay {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl) 0;
+  gap: var(--spacing-md);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--color-accent-purple);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Table grid for appointments */
+.appointment-row {
+  transition: var(--transition-fast);
+}
+
+.appointment-row:hover {
+  background-color: rgba(0,0,0,0.01);
+}

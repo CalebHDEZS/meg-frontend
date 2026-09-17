@@ -1,0 +1,172 @@
+/* Pricing Page Styles */
+.pricing-section {
+  padding-top: 120px;
+  padding-bottom: var(--spacing-xxl);
+  text-align: center;
+}
+
+.pricing-toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xxl);
+}
+
+.pricing-discount-badge {
+  background-color: var(--color-accent-mint-light);
+  color: var(--color-accent-mint-hover);
+  padding: 2px 8px;
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+  max-width: 900px;
+  margin: 0 auto var(--spacing-xxxl) auto;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.plan-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: var(--transition-normal);
+}
+
+.plan-card.premium {
+  border: 2px solid var(--color-accent-purple);
+  box-shadow: var(--shadow-lg);
+}
+
+.plan-popular-tag {
+  position: absolute;
+  top: -14px;
+  right: var(--spacing-xl);
+  background-color: var(--color-accent-purple);
+  color: white;
+  padding: 4px 12px;
+  border-radius: var(--border-radius-lg);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.plan-price-wrapper {
+  margin: var(--spacing-lg) 0;
+}
+
+.plan-price {
+  font-size: var(--font-size-xxl);
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.plan-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+  margin-top: var(--spacing-md);
+}
+
+.plan-feature-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.plan-feature-item i {
+  color: var(--color-accent-mint);
+  font-size: var(--font-size-md);
+}
+
+/* Comparison Table */
+.comparison-section {
+  padding-bottom: var(--spacing-xxl);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--spacing-lg);
+}
+
+.comparison-table th, .comparison-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  font-size: var(--font-size-sm);
+}
+
+.comparison-table th {
+  font-weight: 700;
+  background-color: var(--bg-secondary);
+}
+
+.comparison-table td i {
+  font-size: var(--font-size-md);
+}
+
+.comparison-table td .ph-check-circle-fill {
+  color: var(--color-accent-mint);
+}
+
+.comparison-table td .ph-x-circle-fill {
+  color: var(--text-muted);
+}
+
+/* FAQs */
+.faq-section {
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-xxl) 0;
+}
+
+.faq-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 800px;
+  margin: var(--spacing-xl) auto 0 auto;
+  text-align: left;
+}
+
+.faq-item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  cursor: pointer;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+}
+
+.faq-answer {
+  display: none;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--spacing-sm);
+  line-height: 1.6;
+}
